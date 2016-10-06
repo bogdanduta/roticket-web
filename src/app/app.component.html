@@ -1,33 +1,8 @@
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                Roticket Web
-            </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">                   
-                <li ui-sref-active="active" ui-sref="home">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    Home
-                </li>
-                <li ui-sref-active="active" ui-sref="booking.search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    Booking
-                </li>
-                <li ui-sref-active="active" ui-sref="stationInfo">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    Timetable
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<h1>Hello!</h1>
+ <ul>
+     <li><a routerLink="/booking/home" routerLinkActive="active">Booking Home</a></li>
+     <li><a routerLink="/booking/search" routerLinkActive="active">Booking Search</a></li>
+     <li><a routerLink="/booking/select/journey" routerLinkActive="active">Booking Select Journey</a></li>
+     <li><a routerLink="/booking/select/offer" routerLinkActive="active">Booking Select Offer</a></li>
+     <li><a routerLink="/timetable" routerLinkActive="active">Timetable</a></li>
+</ul>                  
 <router-outlet></router-outlet>

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingService } from '../core/booking.service';
-import { BookingStep } from '../core/booking-step';
+import { BookingService } from './booking.service';
+import { BookingStep } from './booking-step';
 
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    selector:'rt-booking',
-    templateUrl: 'app/booking/booking.component.html'
+    template:  `
+        <h2>Booking Component</h2>
+        <router-outlet></router-outlet>
+    `
 })
 export class BookingComponent implements OnInit{
 

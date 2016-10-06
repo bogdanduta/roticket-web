@@ -3,34 +3,39 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 import { FormsModule }    from '@angular/forms';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { routing,
+         appRoutingProviders }  from './app.routing';
 
-import { routing }              from './app.routing';
 import { ApiService }   from './core/api.service';
-import { BookingService }   from './core/booking.service';
 
 import { AppComponent }  from './app.component';
-import { BookingComponent }   from './booking/booking.component';
-import { BookingSearchComponent }   from './booking/search/booking-search.component';
 import { StationTypeaheadComponent }   from './shared/station-typeahead/station-typeahead.component';
+import { DateTimeComponent }   from './shared/date-time/date-time.component';
+
+import { BookingModule }     from './booking/booking.module';
+import { TimetableModule }     from './timetable/timetable.module';
+
+
+import { LoginComponent }       from './login.component';
+import { DialogService }        from './dialog.service';
 
 @NgModule({
   imports: [ 
     BrowserModule,
     HttpModule,
+
     routing,
-    NgbModule,
-    FormsModule 
+
+    BookingModule,
+    TimetableModule,
   ],
   declarations: [ 
-    AppComponent,
-    BookingComponent,
-    BookingSearchComponent,
-    StationTypeaheadComponent 
+    AppComponent
   ],
   providers:[
     ApiService,
-    BookingService
+    appRoutingProviders,
+    DialogService
   ],
   bootstrap: [ AppComponent ]
 })

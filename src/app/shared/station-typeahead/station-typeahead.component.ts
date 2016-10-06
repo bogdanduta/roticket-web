@@ -21,12 +21,21 @@ export class StationTypeaheadComponent {
     private stationsOnly: boolean;
     private _searching: boolean;
 
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService) { 
+        
+        this.location = {
+            displayName: "BUCURESTI (all stations)", 
+            index: 70051, 
+            isCity: true, 
+            countryName: "Romania"
+        };
+
+
+    }
 
     formatter = (x: {displayName: string}) => x.displayName;
 
     selectItem(event: NgbTypeaheadSelectItemEvent) {
-        console.log(`from station-typeahead: ${event.item.displayName}`);
         this.locationUpdated.emit(event.item);        
     }
 

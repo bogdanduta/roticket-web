@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { ApiUrl }   from './api-url';
 
 @Injectable()
 export class ApiService {
@@ -10,12 +11,12 @@ export class ApiService {
   get(url: string, config: Object): Observable<any> {
     return this.http
       .get(url, config)
-      .map((r:Response) => r.json().data as any[]);
+      .map((r:Response) => r.json() as any[]);
   }
 
    getLocations(name:string ): Observable<any> {
     return this.http
-      .get(`http://localhost:59833/api/timetable/location?name=${name}`)
+      .get(`${ApiUrl.locationApiUrl}?name=${name}`)
       .map((r:Response) => 
         r.json() as any[]);
   }
@@ -23,6 +24,6 @@ export class ApiService {
   post(url: string, config: Object): Observable<any> {
     return this.http
       .post(url, config)
-      .map((r:Response) => r.json().data as any[]);
+      .map((r:Response) => r.json() as any[]);
   }
 }

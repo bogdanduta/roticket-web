@@ -1,6 +1,6 @@
 import { Injectable }   from '@angular/core';
-import { ApiService }   from './api.service';
-import { ApiUrl }   from './api-url';
+import { ApiService }   from '../core/api.service';
+import { ApiUrl }   from '../core/api-url';
 import { Router, ActivatedRoute }       from '@angular/router';
 import { JourneySearchParams }   from './journeySearchParams';
 
@@ -31,6 +31,9 @@ export class BookingService {
 
     outwardJourney: any;
     returnJourney: any;
+
+    private minTransferTimeList: number[] = [1,2,3,4,5,6];
+    private resultsCountList: number[] = [10,15,20,25,30,35,40,45,50,55,60];
 
     constructor(
         private apiService: ApiService,
@@ -77,6 +80,28 @@ export class BookingService {
             ignoreTransitLocalTrains:true,
         };
     }
+    departureLocationUpdated(newLocation: any): void {
+        this.departureLocation = newLocation;
+        if(newLocation){            
+            console.log(`departureLocationUpdated from booking.service: ${newLocation.displayName}`);
+        }
+    }
+    arrivalLocationUpdated(newLocation: any): void {
+        this.arrivalLocation = newLocation;
+        if(newLocation){            
+            console.log(`arrivalLocationUpdated from booking.service: ${newLocation.displayName}`);
+        }
+    }
+    outwardDateTimeChange(newDate: Date): void {
+        console.log(`outwardDateTimeChange from booking.service to ${newDate}`);
+    }
+     returnDateTimeChange(newDate: Date): void {
+        console.log(`returnDateTimeChange from booking.service to ${newDate}`);
+    }
+
+    changeSearchType(newSearchType:string): void {
+        this.searchType = newSearchType;
+    }
 
     search(): void {
         this.router.navigate(['booking/select/outward']);
@@ -113,14 +138,14 @@ export class BookingService {
         }
 
         this.showSpinner = true;
-        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).then((result) => {
+        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
 
             this.showSpinner = false;
             this.showRoutes = true;
 
-            let durationFirstJourney = result.data.journeyList[0];
+            let durationFirstJourney = result.journeyList[0];
 
-            result.data.journeyList.forEach((journey:any) => {
+            result.journeyList.forEach((journey:any) => {
                 this.journeyList.push(journey);
             });
 
@@ -131,7 +156,7 @@ export class BookingService {
         }, (error) => {
 
             this.showSpinner = false;
-            console.error(error.data.message);
+            console.error(error.message);
         });
     }
 
@@ -162,8 +187,8 @@ export class BookingService {
         queryParams.searchDirection = 'forward';
 
         this.showSpinner = true;
-        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).then((result) => {
-            result.data.journeyList.forEach((journey:any) => {
+        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
+            result.journeyList.forEach((journey:any) => {
                 this.journeyList.push(journey);
                 this.showSpinner = false;
             });
@@ -191,8 +216,8 @@ export class BookingService {
         queryParams.searchDirection = 'backward';
 
         this.showSpinner = true;
-        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).then((result) => {
-            result.data.journeyList.forEach((journey:any) => {
+        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
+            result.journeyList.forEach((journey:any) => {
                 this.journeyList.unshift(journey);
                 this.showSpinner = false;
             });

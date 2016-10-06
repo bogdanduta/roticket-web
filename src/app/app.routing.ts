@@ -1,22 +1,19 @@
-import { ModuleWithProviders } from '@angular/core'; 
+import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BookingComponent } from './booking/booking.component';
-import { BookingStep } from './core/booking-step';
+import { loginRoutes,
+         authProviders }      from './login.routing';
+
+import { CanDeactivateGuard } from './can-deactivate-guard.service';
+import { AuthGuard }          from './auth-guard.service';
+
 
 const appRoutes: Routes = [
-    {
-        path: '',
-        redirectTo: '/booking',
-        pathMatch: 'full'
-    },
-    {
-        path: 'booking',
-        component: BookingComponent,
-        data: { 
-            step: BookingStep.searchStep,
-        }
-    },
+
+];
+
+export const appRoutingProviders: any[] = [
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
