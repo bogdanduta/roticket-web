@@ -8,6 +8,8 @@ import { BookingSelectComponent } from './select/booking-select.component';
 import { BookingSelectJourneyComponent } from './select/journey/booking-select-journey.component';
 import { BookingSelectOfferComponent } from './select/offer/booking-select-offer.component';
 
+import { BookingStep } from './booking-step';
+
 const bookingRoutes: Routes = [
     {
         path: 'booking',
@@ -19,7 +21,8 @@ const bookingRoutes: Routes = [
             },
             {
                 path: 'search',
-                component: BookingSearchComponent,                
+                component: BookingSearchComponent, 
+                data: { step: BookingStep.searchStep }               
             },
             {
                 path: 'select',
@@ -27,15 +30,18 @@ const bookingRoutes: Routes = [
                 children: [
                     {
                         path: 'outward',
-                        component: BookingSelectJourneyComponent
+                        component: BookingSelectJourneyComponent,
+                        data: { step: BookingStep.selectStep }   
                     },
                      {
                         path: 'return',
-                        component: BookingSelectJourneyComponent
+                        component: BookingSelectJourneyComponent,
+                        data: { step: BookingStep.selectStep }   
                     },
                     {
                         path: 'offer',
                         component: BookingSelectOfferComponent,                
+                        data: { step: BookingStep.selectStep }   
                     }                  
                 ]          
             }

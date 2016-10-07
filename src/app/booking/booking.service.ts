@@ -40,9 +40,10 @@ export class BookingService {
         public router: Router,
         private route: ActivatedRoute) {
 
-        this.route.data.toPromise().then((data:any) => {
+        this.route.data.forEach((data: { step: BookingStep }) => {
             this.currentStep = data.step;
         });
+
 
         this.bookingSteps = BookingStep.bookingSteps;
         this.searchType = 'oneWay';
@@ -110,12 +111,12 @@ export class BookingService {
     beginSearch(): void {
         let queryParams: any = {};
 
-        if (this.router.url === 'booking/select/outward') {                        
+        if (this.router.url === '/booking/select/outward') {                        
             //angular.copy(this.searchParams, queryParams);
             Object.assign(queryParams, this.searchParams);
             queryParams.departureLocationIndex = this.departureLocation.index;
             queryParams.arrivalLocationIndex = this.arrivalLocation.index;
-        } else { // 'booking/select/return'
+        } else { // '/booking/select/return'
             //angular.copy(this.returnSearchParams, queryParams);
             Object.assign(queryParams, this.returnSearchParams);
             queryParams.departureLocationIndex = this.arrivalLocation.index; 
@@ -170,7 +171,7 @@ export class BookingService {
 
         let queryParams: any = {};
 
-        if (this.router.url === 'booking/select/outward') {
+        if (this.router.url === '/booking/select/outward') {
             //angular.copy(this.searchParams, queryParams);
             Object.assign(queryParams, this.searchParams);
             queryParams.departureLocationIndex = this.departureLocation.index;
@@ -199,7 +200,7 @@ export class BookingService {
 
         let queryParams: any = {};
 
-        if (this.router.url === 'booking/select/outward') {
+        if (this.router.url === '/booking/select/outward') {
             //angular.copy(this.searchParams, queryParams);
             Object.assign(queryParams, this.searchParams);
             queryParams.departureLocationIndex = this.departureLocation.index;
@@ -243,10 +244,10 @@ export class BookingService {
     //}
 
     showSetOutwardJourneyButton(): boolean {
-        return this.router.url === 'booking/select/outward';
+        return this.router.url === '/booking/select/outward';
     }
 
     showSetReturnJourneyButton(): boolean {
-        return this.router.url === 'booking/select/return';
+        return this.router.url === '/booking/select/return';
     }
 }

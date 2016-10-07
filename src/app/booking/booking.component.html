@@ -1,9 +1,8 @@
-<pre>{{ currentStep }}</pre>
 <div class="container p30 inLeft">
     <div class="query">
         <div class="row col-xs-12 steps">
             <div *ngFor="let step of bookingService.bookingSteps" class="col-xs-2 step {{getStepStatus(step)}}">
-                <a href="{{step.href}}">                    
+                <a href="#">                    
                     <div class="ic"><i class="fa {{step.className}}" aria-hidden="true"></i></div>
                     <div class="txt">{{step.displayName}}</div>
                 </a>
@@ -11,7 +10,6 @@
         </div>
         <div class="clearfix"></div>        
     </div>
-    
-    <rtt-booking-search></rtt-booking-search>
+    <router-outlet></router-outlet>
 </div>
 
