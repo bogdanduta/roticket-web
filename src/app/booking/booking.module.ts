@@ -10,6 +10,9 @@ import { BookingSearchComponent } from './search/booking-search.component';
 import { BookingSelectComponent } from './select/booking-select.component';
 import { BookingSelectJourneyComponent } from './select/journey/booking-select-journey.component';
 import { JourneyDetailsComponent } from './select/journey/journey-details.component';
+import { TrainSegmentComponent } from './select/journey/train-segment.component';
+import { WaitSegmentComponent } from './select/journey/wait-segment.component';
+import { WalkSegmentComponent } from './select/journey/walk-segment.component';
 
 import { BookingSelectOfferComponent } from './select/offer/booking-select-offer.component';
 
@@ -41,7 +44,10 @@ import { MinutesToLocalTimePipe } from './minutesToLocalTime.pipe';
         BookingSelectComponent,
         BookingSelectJourneyComponent,
         JourneyDetailsComponent,
-
+        TrainSegmentComponent,
+        WaitSegmentComponent,
+        WalkSegmentComponent,
+        
         BookingSelectOfferComponent,
         
         MinutesToDateTimePipe,
