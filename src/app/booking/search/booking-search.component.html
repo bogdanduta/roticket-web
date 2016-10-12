@@ -28,10 +28,10 @@
 
                 <div class="dep-journey">
                     <div class="country">From</div>
-                    <rrt-station-typeahead
+                    <rtt-station-typeahead
                         [location]="bookingService.departureLocation"
-                        (locationUpdated)="bookingService.departureLocationUpdated($event)">                        
-                    </rrt-station-typeahead>
+                        (locationChange)="bookingService.departureLocationChange($event)">                        
+                    </rtt-station-typeahead>
                 </div>
             
                 <button (click)="bookingService.swapLocations()" type="button" class="btn swap" aria-label="swap" tabindex="3">
@@ -41,10 +41,10 @@
 
                 <div class="arr-journey">
                     <div class="country">To</div>
-                    <rrt-station-typeahead 
+                    <rtt-station-typeahead 
                         [location]="bookingService.arrivalLocation"
-                        (locationUpdated)="bookingService.arrivalLocationUpdated($event)">                        
-                    </rrt-station-typeahead>
+                        (locationChange)="bookingService.arrivalLocationChange($event)">                        
+                    </rtt-station-typeahead>
                 </div>
 
                 <div class="clearfix"></div>

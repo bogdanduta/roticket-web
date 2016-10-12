@@ -49,7 +49,7 @@ const bookingRoutes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/booking/home',
+        redirectTo: '/booking/search',
         pathMatch: 'full'
     },
 ];

@@ -10,33 +10,23 @@ import 'rxjs/add/operator/switchMap';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector:'rrt-station-typeahead',
+    selector:'rtt-station-typeahead',
     templateUrl:'app/shared/station-typeahead/station-typeahead.component.html'
 })
 export class StationTypeaheadComponent {
     
     @Input() location: any;
-    @Output() locationUpdated = new EventEmitter();
+    @Output() locationChange = new EventEmitter();
 
     private stationsOnly: boolean;
     private _searching: boolean;
 
-    constructor(private apiService: ApiService) { 
-        
-        this.location = {
-            displayName: "BUCURESTI (all stations)", 
-            index: 70051, 
-            isCity: true, 
-            countryName: "Romania"
-        };
-
-
-    }
+    constructor(private apiService: ApiService) { }
 
     formatter = (x: {displayName: string}) => x.displayName;
 
     selectItem(event: NgbTypeaheadSelectItemEvent) {
-        this.locationUpdated.emit(event.item);        
+        this.locationChange.emit(event.item);     
     }
 
     search = (text$: Observable<string>) => text$

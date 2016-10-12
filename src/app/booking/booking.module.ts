@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { bookingRouting } from './booking.routing';
 
 import { BookingComponent } from './booking.component';
+import { BookingStepsComponent } from './booking-steps.component';
 import { BookingHomeComponent } from './booking-home.component';
 import { BookingSearchComponent } from './search/booking-search.component';
 
@@ -16,9 +17,7 @@ import { WalkSegmentComponent } from './select/journey/walk-segment.component';
 
 import { BookingSelectOfferComponent } from './select/offer/booking-select-offer.component';
 
-import { DateTimeComponent } from '../shared/date-time/date-time.component';
-import { StationTypeaheadComponent } from '../shared/station-typeahead/station-typeahead.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 import { BookingService } from './booking.service';
 import { ApiService } from '../core/api.service';
@@ -26,19 +25,18 @@ import  { ApiUrl } from '../core/api-url';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MinutesToDateTimePipe } from './minutesToDateTime.pipe';
-import { MinutesToLocalTimePipe } from './minutesToLocalTime.pipe';
-
 @NgModule({
     imports:[
         FormsModule,
         CommonModule,
         bookingRouting,
-        NgbModule
+        NgbModule,
+        SharedModule
     ],
 
     declarations:[
         BookingComponent,
+        BookingStepsComponent,
         BookingHomeComponent,
         BookingSearchComponent,
         BookingSelectComponent,
@@ -48,13 +46,7 @@ import { MinutesToLocalTimePipe } from './minutesToLocalTime.pipe';
         WaitSegmentComponent,
         WalkSegmentComponent,
         
-        BookingSelectOfferComponent,
-        
-        MinutesToDateTimePipe,
-        MinutesToLocalTimePipe,
-
-        DateTimeComponent,
-        StationTypeaheadComponent
+        BookingSelectOfferComponent     
     ],
 
     providers:[

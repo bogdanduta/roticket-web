@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'rt-app',
+  selector: 'rtt-app',
   templateUrl: 'app/app.component.html'
 })
 export class AppComponent {

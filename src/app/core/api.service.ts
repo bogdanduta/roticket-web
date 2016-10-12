@@ -11,19 +11,19 @@ export class ApiService {
   get(url: string, config: Object): Observable<any> {
     return this.http
       .get(url, config)
-      .map((r:Response) => r.json() as any[]);
+      .map((r:Response) => r.json());
   }
 
    getLocations(name:string ): Observable<any> {
     return this.http
       .get(`${ApiUrl.locationApiUrl}?name=${name}`)
       .map((r:Response) => 
-        r.json() as any[]);
+        r.json());
   }
 
   post(url: string, config: Object): Observable<any> {
     return this.http
       .post(url, config)
-      .map((r:Response) => r.json() as any[]);
+      .map((r:Response) => r.json());
   }
 }

@@ -93,7 +93,9 @@
             </div>
         </div>
 
-        <button class="route-details collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#route-' + journey.journeyId" aria-expanded="false" aria-controls="Route">
+        <button class="route-details collapsed" type="button" 
+            data-toggle="collapse" [attr.data-target]="'#route-' + journey.journeyId" 
+            aria-expanded="false" aria-controls="Route">
             Result in ({{journey.elapsedMilliseconds | number:0}}) ms - Route details <i class="fa fa-chevron-down collapsed" aria-hidden="true"></i>
         </button>
     </div>

@@ -1,7 +1,7 @@
 import { Injectable }   from '@angular/core';
 import { ApiService }   from '../core/api.service';
 import { ApiUrl }   from '../core/api-url';
-import { Router, ActivatedRoute }       from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent }       from '@angular/router';
 import { JourneySearchParams }   from './journeySearchParams';
 
 import * as _ from 'underscore';
@@ -38,13 +38,22 @@ export class BookingService {
     constructor(
         private apiService: ApiService,
         public router: Router,
-        private route: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute) {
 
-        this.route.data.forEach((data: { step: BookingStep }) => {
-            this.currentStep = data.step;
-        });
+        this.departureLocation = {
+            displayName: "BUCURESTI (all stations)", 
+            index: 70051, 
+            isCity: true, 
+            countryName: "Romania"}
+        ;
 
-
+        this.arrivalLocation = {
+                displayName: "BUDAPEST (all stations)", 
+                index: 70052, 
+                isCity: true, 
+                countryName: "Hungary"
+        };
+        
         this.bookingSteps = BookingStep.bookingSteps;
         this.searchType = 'oneWay';
 
@@ -81,13 +90,28 @@ export class BookingService {
             ignoreTransitLocalTrains:true,
         };
     }
-    departureLocationUpdated(newLocation: any): void {
+
+    getStepStatus(step: BookingStep): string {
+        
+        if(!this.currentStep){
+            return "";
+        }
+        if (step.orderNumber < this.currentStep.orderNumber) {
+            return 'ok';
+        }
+        if (step.orderNumber === this.currentStep.orderNumber) {
+            return 'current';
+        }
+        return "";
+    }
+
+    departureLocationChange(newLocation: any): void {
         this.departureLocation = newLocation;
         if(newLocation){            
             console.log(`departureLocationUpdated from booking.service: ${newLocation.displayName}`);
         }
     }
-    arrivalLocationUpdated(newLocation: any): void {
+    arrivalLocationChange(newLocation: any): void {
         this.arrivalLocation = newLocation;
         if(newLocation){            
             console.log(`arrivalLocationUpdated from booking.service: ${newLocation.displayName}`);
