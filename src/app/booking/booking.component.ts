@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
-import { BookingService } from './booking.service';
-import { BookingStep } from './booking-step';
-
-import 'rxjs/add/operator/toPromise';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    templateUrl:  'app/booking/booking.component.html'
+    selector: 'booking',
+    templateUrl: './booking.component.html'
 })
-export class BookingComponent{
+export class BookingComponent implements OnInit {
+    a:number;
+    b:number;
+    c:number;
+    constructor() { }
 
-    constructor(private bookingService: BookingService) {
-    }       
+    ngOnInit() { }
+    buttonClick(): void{
+        this.c = this.a + this.b;
+    }
+    
 }

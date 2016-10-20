@@ -1,8 +1,14 @@
+
 import { Component } from '@angular/core';
 
+import '../../public/css/styles.css';
+
 @Component({
-  selector: 'rtt-app',
-  templateUrl: 'app/app.component.html'
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent { 
+  private name = 'Bogdan';
+  private age = 34;
 }

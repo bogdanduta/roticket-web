@@ -1,5 +1,19 @@
- <ul>
-     <li><a routerLink="/booking/search" routerLinkActive="active">Booking Search</a></li>
-     <li><a routerLink="/timetable" routerLinkActive="active">Timetable</a></li>
-</ul>                
-<router-outlet></router-outlet>
+<main>
+  <h1>Hello from Angular App with Webpack!</h1> 
+  <booking></booking>
+  <form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-addon" (click)="d.toggle()" >
+        <img src="../../public/images/calendar-icon.svg" style="width: 1.2rem; cursor: pointer;"/>
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr/>
+<pre>Model: {{ model | json }}</pre>
+
+  <img src="../../public/images/angular.png">
+</main>
