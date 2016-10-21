@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 
+//import * as _ from 'underscore';
+
 const MILLISECONDS_IN_A_DAY:number = 24 * 60 * 60 * 1000;
 
 @Component({
     selector: 'rtt-operating-calendar',
-    templateUrl: 'app/shared/operating-calendar/operating-calendar.component.html'
+    templateUrl: './operating-calendar.component.html'
 })
 export class OperatingCalendarComponent implements OnInit {
     @Input() operatingSchedules: any;
@@ -23,12 +25,15 @@ export class OperatingCalendarComponent implements OnInit {
             return;
         }
 
-        let firstDayOfOperation = _.min<Date>(this.operatingSchedules.map((os: any) => {
-            return os.firstDayOfOperation;
-        }));
-        let lastDayOfOperation = _.max<Date>(this.operatingSchedules.map((os: any) => {
-            return new Date(os.firstDayOfOperation.getTime() + MILLISECONDS_IN_A_DAY * (os.operatingDays.length - 1));
-        }));
+        let firstDayOfOperation = new Date();
+        //let firstDayOfOperation = _.min<Date>(this.operatingSchedules.map((os: any) => {
+        //    return os.firstDayOfOperation;
+        //}));
+        
+        let lastDayOfOperation = new Date();
+        //let lastDayOfOperation = _.max<Date>(this.operatingSchedules.map((os: any) => {
+        //    return new Date(os.firstDayOfOperation.getTime() + MILLISECONDS_IN_A_DAY * (os.operatingDays.length - 1));
+        //}));
 
         let calendarBeginMonth = new Date(firstDayOfOperation.getFullYear(), firstDayOfOperation.getMonth());
         let calendarEndMonth = new Date(lastDayOfOperation.getFullYear(), lastDayOfOperation.getMonth());

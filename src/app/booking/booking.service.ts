@@ -4,7 +4,8 @@ import { ApiUrl }   from '../core/api-url';
 import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent }       from '@angular/router';
 import { JourneySearchParams }   from './journeySearchParams';
 
-import * as _ from 'underscore';
+//import * as _ from 'underscore/underscore';
+//var _ = require('underscore');
 import { BookingStep } from './booking-step';
 
 const MILLISECONDS_IN_A_MINUTE:number = 60 * 1000;
@@ -207,7 +208,8 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        var lastDepartureLocalDateTime = new Date(_.last(this.journeyList).departureLocalDateTime);
+        //var lastDepartureLocalDateTime = new Date(_.last(this.journeyList).departureLocalDateTime);
+        var lastDepartureLocalDateTime = new Date();
         queryParams.referenceLocalDateTime = new Date(lastDepartureLocalDateTime.getTime() + 60000);
         queryParams.searchDirection = 'forward';
 
@@ -236,7 +238,8 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        var firstArrivalLocalDateTime = new Date(_.first(this.journeyList).arrivalLocalDateTime);
+        //var firstArrivalLocalDateTime = new Date(_.first(this.journeyList).arrivalLocalDateTime);
+        var firstArrivalLocalDateTime = new Date();
         queryParams.referenceLocalDateTime = new Date(firstArrivalLocalDateTime.getTime() - 60000);
         queryParams.searchDirection = 'backward';
 

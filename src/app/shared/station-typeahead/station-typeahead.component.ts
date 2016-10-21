@@ -11,7 +11,7 @@ import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector:'rtt-station-typeahead',
-    templateUrl:'app/shared/station-typeahead/station-typeahead.component.html'
+    templateUrl:'./station-typeahead.component.html'
 })
 export class StationTypeaheadComponent {
     

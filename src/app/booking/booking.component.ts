@@ -5,7 +5,7 @@ import { BookingStep } from './booking-step';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl:  'app/booking/booking.component.html'
+    templateUrl:  './booking.component.html'
 })
 export class BookingComponent{
 

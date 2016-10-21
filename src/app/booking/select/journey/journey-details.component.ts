@@ -3,7 +3,7 @@ import { BookingService } from '../../booking.service';
 
 @Component({
     selector:'rtt-journey-detail',
-    templateUrl: 'app/booking/select/journey/journey-details.component.html'
+    templateUrl: './journey-details.component.html'
 })
 export class JourneyDetailsComponent {
 

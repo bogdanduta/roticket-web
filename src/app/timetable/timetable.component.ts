@@ -6,7 +6,7 @@ import { ApiUrl } from '../core/api-url';
 const MILLISECONDS_IN_AN_HOUR = 60 * 60 * 1000;
 
 @Component({
-    templateUrl: 'app/timetable/timetable.component.html'
+    templateUrl: './timetable.component.html'
 })
 export class TimetableComponent implements OnInit {
 

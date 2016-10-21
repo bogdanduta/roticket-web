@@ -3,7 +3,7 @@ import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector:'rtt-date-time',
-    templateUrl:'app/shared/date-time/date-time.component.html'
+    templateUrl:'./date-time.component.html'
 })
 export class DateTimeComponent {
 

@@ -21,7 +21,7 @@ import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
     declarations: [
         DateTimeComponent,
         StationTypeaheadComponent,
-        OperatingCalendarComponent
+        OperatingCalendarComponent,
         MinutesToDateTimePipe,
         MinutesToLocalTimePipe
     ],

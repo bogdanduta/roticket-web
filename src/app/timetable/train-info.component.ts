@@ -6,7 +6,7 @@ import { ApiService } from '../core/api.service';
 import { ApiUrl } from '../core/api-url';
 
 @Component({
-    templateUrl: 'app/timetable/train-info.component.html'
+    templateUrl: './train-info.component.html'
 })
 export class TrainInfoComponent implements OnInit {
 
