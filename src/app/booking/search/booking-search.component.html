@@ -1,0 +1,161 @@
+
+<form (ngSubmit)="bookingService.search()">
+    <div class="row">
+        <div class="col-xs-12 nopadding">
+            <h2><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Find your journey</h2>
+
+            <div class="btn-group btn-group-justified direction" role="group" aria-label="...">
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn"
+                            [ngClass]="{'btn-success':bookingService.searchType == 'oneWay'}"
+                            (click)="bookingService.changeSearchType('oneWay')">
+                        <span>One way</span>
+                    </button>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn"
+                            [ngClass]="{'btn-success': bookingService.searchType == 'roundtrip'}"
+                            (click)="bookingService.changeSearchType('roundtrip')">
+                        <span>Roundtrip</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="card destination">
+
+                <div class="dep-journey">
+                    <div class="country">From</div>
+                    <rtt-station-typeahead
+                        [location]="bookingService.departureLocation"
+                        (locationChange)="bookingService.departureLocationChange($event)">                        
+                    </rtt-station-typeahead>
+                </div>
+            
+                <button (click)="bookingService.swapLocations()" type="button" class="btn swap" aria-label="swap" tabindex="3">
+                    <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+                    Swap
+                </button>
+
+                <div class="arr-journey">
+                    <div class="country">To</div>
+                    <rtt-station-typeahead 
+                        [location]="bookingService.arrivalLocation"
+                        (locationChange)="bookingService.arrivalLocationChange($event)">                        
+                    </rtt-station-typeahead>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-xs-12  col-lg-6 nopadding">
+            <br />
+            <h2>
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                Outward date
+            </h2>
+
+            <rtt-date-time (dateTimeChange)="bookingService.outwardDateTimeChange($event)"> </rtt-date-time>
+        </div>
+
+        <div  [ngClass]="{'soon': bookingService.searchType === 'oneWay'}" class="col-xs-12  col-lg-6 nopadding-right">
+            <br />
+            <h2>
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                Return date
+            </h2>
+
+            <rtt-date-time (dateTimeChange)="bookingService.returnDateTimeChange($event)"></rtt-date-time>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="advanceSearch" class="collapse">           
+            <div class="col-xs-12  col-lg-4 nopadding">
+                <br />
+                <h2><i class="fa fa-random" aria-hidden="true"></i> Maximum changes</h2>
+                <div class="card col-lg-12 ">
+                    <div class="input-group transfer">
+                        <input type="text" name="maxNumberOfChanges" [(ngModel)]="bookingService.searchParams.maxNumberOfChanges" />
+                        <div class="input-group-btn">
+                            <button type="button" class="datepicker" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li (click)="bookingService.searchParams.maxNumberOfChanges = 0;">Direct train</li>
+                                <li *ngFor="let i of [1,2,3,4,5]" (click)="bookingService.searchParams.maxNumberOfChanges = i;">{{i}} changes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12  col-lg-4 nopadding-right">
+                <br />
+                <h2><i class="fa fa-list-ol" aria-hidden="true"></i> How many routes?</h2>
+                <div class="card col-lg-12 ">
+                    <div class="input-group transfer">
+                        <input type="text" name="resultsCount" aria-label="duration of transfer" 
+                        [(ngModel)]="bookingService.searchParams.resultsCount">
+                        <div class="input-group-btn">
+                            <button type="button" class="datepicker" data-toggle="dropdown" 
+                            aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li *ngFor="let i of resultsCountList" (click)="bookingService.searchParams.resultsCount = i;">
+                                    <a>{{i}} result</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12  col-lg-4 nopadding-right">
+                <br />
+                <h2><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 
+                How long you need to change trains?</h2>
+                <div class="card col-lg-12 ">
+                    <div class="input-group transfer">
+                        <input type="text" name="minTransferTime" aria-label="duration of transfer" 
+                        [(ngModel)]="bookingService.searchParams.minTransferTime" />
+
+                        <div class="input-group-btn">
+                            <button type="button" class="datepicker" data-toggle="dropdown" 
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                                            
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li *ngFor="let i of minTransferTimeList" (click)="bookingService.minTransferTime.resultsCount = i;">
+                                    <a>{{i}} result</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="bookingService.searchParams.referenceLocalDateTime">
+            <div class="col-xs-12 col-sm-6">
+                <button class="advance-search" type="button" data-toggle="collapse" 
+                    data-target="#advanceSearch" aria-expanded="false" aria-controls="advanceSearch">
+                    <i class="fa fa-plus" aria-hidden="true"></i> More search options
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button class="search" type="submit" 
+                    (click)="bookingService.showRoutes = true" 
+                    [ngClass]="{'disable' : bookingService.showSpinner}">
+                    Search route
+                </button>
+            </div>
+            <div class="col-xs-12"></div>
+        </div>
+    </div>
+</form>

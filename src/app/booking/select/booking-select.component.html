@@ -1,0 +1,49 @@
+<div class="row card selected-tickets">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 selected-ticket">
+        <div class="center">
+            <span>Outward journey:</span>
+            <div class="info-ticket">
+                <div class="block">
+                    <div class="from">{{bookingService.departureLocation.displayName}}</div>
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                    <div class="to">{{bookingService.arrivalLocation.displayName}}</div>
+                </div>
+
+                <div class="block infos">
+                    <span *ngIf="!bookingService.outwardJourney">
+                        earliest dep at: {{bookingService.searchParams.referenceLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                    </span>
+                    <span *ngIf="bookingService.outwardJourney">
+                        dep at: {{bookingService.outwardJourney.departureLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="bookingService.searchType === 'roundtrip'" class="col-xs-12 col-sm-12 col-md-6 selected-ticket">
+        <span>Return journey:</span>
+        <div class="info-ticket">
+            <div class="block">
+                <div class="from">{{bookingService.arrivalLocation.displayName}}</div> 
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                <div class="to">{{bookingService.departureLocation.displayName}}</div>
+            </div>
+
+            <div class="block infos">
+                <span *ngIf="!bookingService.returnJourney">
+                    earliest dep at: {{bookingService.returnSearchParams.referenceLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                </span>
+                <span *ngIf="bookingService.returnJourney">
+                    dep at: {{bookingService.returnJourney.departureLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-3 pull-right">
+        <button href="" class="modify-journey" (click)="bookingService.modifyJourney()">Modify journey</button>
+    </div>
+</div>
+<router-outlet></router-outlet>

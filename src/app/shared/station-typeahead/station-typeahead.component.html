@@ -1,0 +1,11 @@
+<template #rt let-r="result" let-t="term">
+  {{ r.displayName }} ({{ r.countryName }})
+</template>
+
+<input type="text" class="form-control" placeholder="search for stations/cities"
+    (selectItem) = "selectItem($event)"
+    [inputFormatter] = "formatter"
+    [editable]="'false'"
+    [ngModel]="location" 
+    [ngbTypeahead]="search" 
+    [resultTemplate]="rt"/>

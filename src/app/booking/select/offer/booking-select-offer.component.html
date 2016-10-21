@@ -1,0 +1,17 @@
+<div>
+    <ul>
+        <li *ngFor="let segment of bookingService.outwardJourney.facilityes">
+            {{segment.specificFacilityTypeId}} - {{segment.reservationCharacteristic}} ({{segment.originLocationName}} -> {{segment.destinationLocationName}})
+        </li>
+    </ul>
+</div>
+<!--<div>
+    <ul>
+        <li *ngFor="let segment of bookingService.returnJourney.pricingCategorySegments">
+            {{segment.pricingCategory}} ({{segment.originLocationName}} -> {{segment.destinationLocationName}})
+        </li>
+    </ul>
+</div>-->
+
+<pre style="display:inline-table">{{bookingService.outwardJourney | json}} </pre>
+<pre style="display:inline-table">{{bookingService.returnJourney | json}} </pre>

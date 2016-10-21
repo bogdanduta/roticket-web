@@ -1,0 +1,102 @@
+<div class="row card fadeIn">
+    <div class="flex">
+        <div class="col-sm-5">
+            <div class="col-sm-12 nopadding bb1 flex">
+                <div class="col-sm-9 departure">
+                    <span class="visible-xs"><i class="fa fa-map-marker" aria-hidden="true"></i> From</span>
+                    <div class="">{{journey.departureStation}}</div>
+                </div>
+                <div class="col-sm-3 departure-time">
+                    <div class="">
+                        <div class="date"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 
+                        {{journey.departureLocalDateTime | date : 'dd.MM.yy'}}</div>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                        {{journey.departureLocalDateTime | date : 'HH:mm' : '+00'}}
+
+                        <span class="visible-xs-inline depart"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> departure</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 nopadding flex">
+
+                <div class="col-sm-9 arrive">
+                    <span class="visible-xs"><i class="fa fa-map-marker" aria-hidden="true"></i> To</span>
+                    <div class="">{{journey.arrivalStation}}</div>
+                </div>
+                <div class="col-sm-3 arrive-time">
+                    <div class="">
+                        <div class="date"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 
+                        {{journey.arrivalLocalDateTime | date : 'dd.MM.yy'}}</div>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> {{journey.arrivalLocalDateTime | date : 'HH:mm' : '+00'}}
+
+                        <span class="visible-xs-inline arr"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> arrive</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 flex-center">
+            <div class="col-xs-6  col-sm-4">
+                <div class="travel-time">
+                    <span class="visible-xs-inline">
+                        <i class="fa fa-hourglass-half" aria-hidden="true"></i> Duration  -
+                    </span> {{journey.durationInMinutes | minutesToDateTime}} <sup>hr</sup>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <div class="number-of-changes">
+                    <span class="visible-xs-inline">
+                        <i class="fa fa-random" aria-hidden="true"></i> Changes -
+                    </span>{{journey.numberOfChanges}}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="train-services">
+                    <span class="hidden-xs">R, ICx</span>  <span class="visible-xs">
+                        Services: <i class="fa fa-wheelchair" aria-hidden="true"></i>
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="reservation"><span class="visible-xs-inline">Need</span> 
+                R<span class="visible-xs-inline">eservation</span></div>
+            </div>
+        </div>
+        <div class="col-sm-3 flex-colum">
+            <div class="ticket">Fares not available</div>
+            <button class="return-routes"
+                    *ngIf="bookingService.showSetOutwardJourneyButton()"
+                    (click)="bookingService.setOutwardJourney(journey)"
+                    [ngSwitch]="bookingService.searchType">
+                <i class="fa fa-undo" aria-hidden="true"></i>
+                <span *ngSwitchCase="'oneWay'">To offer selection</span>
+                <span *ngSwitchCase= "'roundtrip'">To return journey</span>
+            </button>
+            <button class="return-routes"
+                    *ngIf="bookingService.showSetReturnJourneyButton()"
+                    (click)="bookingService.setReturnJourney(journey)">
+                <i class="fa fa-undo" aria-hidden="true"></i>
+                <span>To offer selection</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-xs-12">
+
+        <div class="collapse" id="route-{{journey.journeyId}}">
+            <div class="well">
+                <template ngFor let-segment [ngForOf]= "journey.segments">
+                    <div [ngSwitch]="segment.segmentType">
+                        <rtt-train-segment *ngSwitchCase="0" [segment]="segment"></rtt-train-segment>                
+                        <rtt-wait-segment *ngSwitchCase="1" [segment]="segment"></rtt-wait-segment>
+                        <rtt-walk-segment *ngSwitchCase="2" [segment]="segment"></rtt-walk-segment>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <button class="route-details collapsed" type="button" 
+            data-toggle="collapse" [attr.data-target]="'#route-' + journey.journeyId" 
+            aria-expanded="false" aria-controls="Route">
+            Result in ({{journey.elapsedMilliseconds | number:0}}) ms - Route details <i class="fa fa-chevron-down collapsed" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
