@@ -75,7 +75,7 @@
     </div>
 
     <div class="row">
-        <div id="advanceSearch" class="collapse">           
+        <div [ngbCollapse]="!isExpanded">           
             <div class="col-xs-12  col-lg-4 nopadding">
                 <br />
                 <h2><i class="fa fa-random" aria-hidden="true"></i> Maximum changes</h2>
@@ -143,8 +143,7 @@
 
         <div class="row" *ngIf="bookingService.searchParams.referenceLocalDateTime">
             <div class="col-xs-12 col-sm-6">
-                <button class="advance-search" type="button" data-toggle="collapse" 
-                    data-target="#advanceSearch" aria-expanded="false" aria-controls="advanceSearch">
+                <button type="button" (click)="isExpanded = !isExpanded" aria-expanded="false" aria-controls="advanceSearch">
                     <i class="fa fa-plus" aria-hidden="true"></i> More search options
                 </button>
             </div>
