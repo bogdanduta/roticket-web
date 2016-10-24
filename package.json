@@ -23,7 +23,15 @@
     "@angular/platform-browser": "~2.1.0",
     "@angular/platform-browser-dynamic": "~2.1.0",
     "@angular/router": "~3.1.0",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.6",
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.6",
+=======
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.9",
+>>>>>>> refs/remotes/origin/master
+=======
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.6",
+>>>>>>> refs/remotes/origin/master
     "bootstrap": "^4.0.0-alpha.4",
     "core-js": "^2.4.1",
     "lodash": "^4.16.4",
