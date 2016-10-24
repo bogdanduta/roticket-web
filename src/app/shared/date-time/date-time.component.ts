@@ -1,9 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbTimeStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { RODateParserFormatter } from './date-parser-formatter';
 
 @Component({
     selector:'rtt-date-time',
     templateUrl:'./date-time.component.html'
+    templateUrl:'./date-time.component.html',
+    providers: [{ provide: NgbDateParserFormatter, useClass: RODateParserFormatter }] // define custom NgbDatepickerI18n provider
 })
 export class DateTimeComponent {
 
@@ -25,6 +29,7 @@ export class DateTimeComponent {
             year: this.dateTime.getFullYear(),
             month: this.dateTime.getMonth(),
             day: this.dateTime.getDate()
+            day: this.dateTime.getDate(),
         };    
 
         this.time = {
@@ -72,3 +77,5 @@ export class DateTimeComponent {
         this.dateTimeChange.emit(newDateTime);
     }
 }
+
+

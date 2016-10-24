@@ -12,6 +12,12 @@
                     <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                     <i class="fa fa-angle-down caretdate" aria-hidden="true"></i>
                 </button>
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" 
+                [ngModel]="date" 
+                (ngModelChange)="change()"
+                ngbDatepicker #d="ngbDatepicker">  
+            <div class="input-group-addon" (click)="d.toggle()" >
+                <img src="./calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
             </div>
         </div>        
     </div>
