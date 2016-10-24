@@ -1,9 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbTimeStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { RODateParserFormatter } from './date-parser-formatter';
 
 @Component({
     selector:'rtt-date-time',
+    templateUrl:'./date-time.component.html'
     templateUrl:'./date-time.component.html',
     providers: [{ provide: NgbDateParserFormatter, useClass: RODateParserFormatter }] // define custom NgbDatepickerI18n provider
 })
@@ -26,8 +28,10 @@ export class DateTimeComponent {
         this.date = {
             year: this.dateTime.getFullYear(),
             month: this.dateTime.getMonth(),
+            day: this.dateTime.getDate()
             day: this.dateTime.getDate(),
         };    
+
         this.time = {
             hour: this.dateTime.getHours(),
             minute:this.dateTime.getMinutes(),
