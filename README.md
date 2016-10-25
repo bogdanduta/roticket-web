@@ -1,4 +1,4 @@
-# Roticket Web 1
+# Roticket Web 2
 [![Build Status][travis-badge]][travis-badge-url]
 
 This repository holds the TypeScript source code of the [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html),
