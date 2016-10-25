@@ -38,7 +38,7 @@
         </div>
         <div class="stops">
             <div class="clearfix"></div>
-            <div class="collapse" id="segment-{{segment.segmentId}}" aria-expanded="false" style="height: 0px;">
+            <div [ngbCollapse]="!isStopDetailsExpanded" style="height: 0px;">
                 <div class="well">
                     <div class="row">
                         <div class="col-xs-12 details-route-section">
@@ -54,9 +54,10 @@
                     </div>
                 </div>
             </div>
-            <button class="route-details collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#segment-' + segment.segmentId" aria-expanded="false" aria-controls="Route">
+            <button class="route-details" type="button" (click)="isStopDetailsExpanded = !isStopDetailsExpanded">
                 {{segment.stops.length}} stops <span class="stops-details">stops details</span>
             </button>
+
             <div class="clearfix"></div>
         </div>
         <div class="to">

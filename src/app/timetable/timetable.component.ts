@@ -22,7 +22,7 @@ export class TimetableComponent implements OnInit {
     constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute,
         private router: Router) { }     
 
-    ngOnInit(): void {        
+    ngOnInit() {        
 
         this.activatedRoute.params.forEach((params: Params) => {
         
@@ -61,17 +61,17 @@ export class TimetableComponent implements OnInit {
         });
     }
     
-    setStationEventType(stationEventType:string): void {
+    setStationEventType(stationEventType:string) {
         this.stationEventType = stationEventType;
     }
 
-    loadEvents(hoursOffset: number):void {
+    loadEvents(hoursOffset: number) {
         this.referenceLocalDateTime = new Date(this.referenceLocalDateTime.getTime()
             + hoursOffset * MILLISECONDS_IN_AN_HOUR);
         this.search();
     }
 
-    search():void {
+    search() {
         this.router.navigate(['/station-info', 
             this.station.index,
             this.stationEventType,

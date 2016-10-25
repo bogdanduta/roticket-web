@@ -56,7 +56,7 @@
 
             <div class="row station-list" *ngFor="let event of stationEvents">
                 <div class="col-xs-4 col-sm-1"><i class="fa fa-clock-o visible-xs-inline" aria-hidden="true"></i> 
-                {{event.eventLocalTime | minutesToDateTime}}</div>
+                {{event.eventLocalTime | minutesToTimeSpan}}</div>
                 <div class="col-xs-8 col-sm-2 col-md-1 train">
                     <a class="pull-right-xs" [routerLink]="['/train-info', event.trainIndex, referenceLocalDateTime.getTime()]">
                         <i class="fa fa-train" aria-hidden="true"></i> R {{event.serviceNumber}}

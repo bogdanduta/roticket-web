@@ -8,7 +8,7 @@ import { DateTimeComponent } from './date-time/date-time.component';
 import { StationTypeaheadComponent } from './station-typeahead/station-typeahead.component';
 import { OperatingCalendarComponent } from './operating-calendar/operating-calendar.component';
 
-import { MinutesToDateTimePipe } from './pipes/minutesToDateTime.pipe';
+import { MinutesToTimeSpanPipe } from './pipes/minutesToTimeSpan.pipe';
 import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
 
 @NgModule({
@@ -22,14 +22,14 @@ import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
         DateTimeComponent,
         StationTypeaheadComponent,
         OperatingCalendarComponent,
-        MinutesToDateTimePipe,
+        MinutesToTimeSpanPipe,
         MinutesToLocalTimePipe
     ],
     exports: [
         DateTimeComponent,
         StationTypeaheadComponent,
         OperatingCalendarComponent,
-        MinutesToDateTimePipe,
+        MinutesToTimeSpanPipe,
         MinutesToLocalTimePipe
     ]
 })

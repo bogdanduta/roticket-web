@@ -1,17 +1,6 @@
 <div class="card">
     <div class="col-xs-12 col-sm-8">
         <div class="input-group top10">
-            <input type="text" name="dp" aria-label="Text input with multiple buttons" placeholder="Choose date"
-                    [(ngModel)]="date" 
-                    (ngModelChange)="change()"
-                    ngbDatepicker #d="ngbDatepicker">
-
-            <div class="input-group-btn">
-                <button type="button" class="datepicker" aria-label="DatePicker" 
-                    (click)="d.toggle()">
-                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                    <i class="fa fa-angle-down caretdate" aria-hidden="true"></i>
-                </button>
             <input class="form-control" placeholder="yyyy-mm-dd" name="dp" 
                 [ngModel]="date" 
                 (ngModelChange)="change()"
@@ -19,7 +8,8 @@
             <div class="input-group-addon" (click)="d.toggle()" >
                 <img src="./calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
             </div>
-        </div>        
+ 
+          </div>
     </div>
 
     <div class="col-xs-12 col-sm-4 date-time">
@@ -29,7 +19,8 @@
                 (ngModelChange)="change()">
             </ngb-timepicker>
         </div>
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
-</div>
+</div> 
