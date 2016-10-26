@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { TimetableComponent } from './timetable.component';
+import { StationInfoComponent } from './station-info.component';
 import { TrainInfoComponent } from './train-info.component';
 import { timetableRouting } from './timetable.routing';
 
@@ -17,8 +18,10 @@ import { SharedModule } from '../shared/shared.module';
     ],
     declarations: [
         TimetableComponent,
+        StationInfoComponent,
         TrainInfoComponent        
     ],
-    providers: []
+    providers: [        
+    ]
 })
 export class TimetableModule {}

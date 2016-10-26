@@ -223,8 +223,10 @@ export class BookingService {
     }
 
     loadEarlierJourneys(): void {
-
         let queryParams: any = {};
+
+        alert('Not implemented!');
+        if (1===1) return;        
 
         if (this.router.url === '/booking/select/outward') {
             //angular.copy(this.searchParams, queryParams);

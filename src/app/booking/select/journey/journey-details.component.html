@@ -39,7 +39,7 @@
                 <div class="travel-time">
                     <span class="visible-xs-inline">
                         <i class="fa fa-hourglass-half" aria-hidden="true"></i> Duration  -
-                    </span> {{journey.durationInMinutes | minutesToDateTime}} <sup>hr</sup>
+                    </span> {{journey.durationInMinutes | minutesToTimeSpan}}
                 </div>
             </div>
             <div class="col-xs-6 col-sm-4">
@@ -81,7 +81,7 @@
     </div>
     <div class="col-xs-12">
 
-        <div class="collapse" id="route-{{journey.journeyId}}">
+        <div [ngbCollapse]="!isRouteExpanded">
             <div class="well">
                 <template ngFor let-segment [ngForOf]= "journey.segments">
                     <div [ngSwitch]="segment.segmentType">
@@ -93,10 +93,10 @@
             </div>
         </div>
 
-        <button class="route-details collapsed" type="button" 
-            data-toggle="collapse" [attr.data-target]="'#route-' + journey.journeyId" 
-            aria-expanded="false" aria-controls="Route">
-            Result in ({{journey.elapsedMilliseconds | number:0}}) ms - Route details <i class="fa fa-chevron-down collapsed" aria-hidden="true"></i>
+        <button class="route-details" type="button" (click)="isRouteExpanded = !isRouteExpanded">
+            Result in ({{journey.elapsedMilliseconds | number:0}}) ms - {{!isRouteExpanded ? 'Open' : 'Close'}} route details 
+            <i class="fa fa-chevron-down collapsed" aria-hidden="true"></i>
         </button>
+
     </div>
 </div>

@@ -10,7 +10,7 @@
                     <button type="button" class="btn"
                             [ngClass]="{'btn-success':bookingService.searchType == 'oneWay'}"
                             (click)="bookingService.changeSearchType('oneWay')">
-                        <span>One way trip</span>
+                        <span>One way</span>
                     </button>
                 </div>
 
@@ -74,68 +74,51 @@
         </div>
     </div>
 
-    <div class="row">
-        <div id="advanceSearch" class="collapse">           
-        <div [ngbCollapse]="!isExpanded">           
+    <div class="row">       
+        <div [ngbCollapse]="!isAdvancedSearchExpanded">           
             <div class="col-xs-12  col-lg-4 nopadding">
                 <br />
                 <h2><i class="fa fa-random" aria-hidden="true"></i> Maximum changes</h2>
                 <div class="card col-lg-12 ">
-                    <div class="input-group transfer">
-                        <input type="text" name="maxNumberOfChanges" [(ngModel)]="bookingService.searchParams.maxNumberOfChanges" />
-                        <div class="input-group-btn">
-                            <button type="button" class="datepicker" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li (click)="bookingService.searchParams.maxNumberOfChanges = 0;">Direct train</li>
-                                <li *ngFor="let i of [1,2,3,4,5]" (click)="bookingService.searchParams.maxNumberOfChanges = i;">{{i}} changes</li>
-                            </ul>
+                    <div ngbDropdown class="d-inline-block">
+                        <button type="button" class="btn btn-outline-primary" id="maxNumberOfChangesDropdownMenu" ngbDropdownToggle>
+                            {{bookingService.searchParams.maxNumberOfChanges}}</button>
+                        <div class="dropdown-menu" aria-labelledby="maxNumberOfChangesDropdownMenu">
+                            <button type="button" class="dropdown-item" 
+                                (click)="bookingService.searchParams.maxNumberOfChanges = 0;">Direct train</button>
+                            <button type="button" class="dropdown-item" *ngFor="let i of [1,2,3,4,5]" 
+                                (click)="bookingService.searchParams.maxNumberOfChanges = i;">{{i}} changes</button>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
             <div class="col-xs-12  col-lg-4 nopadding-right">
                 <br />
                 <h2><i class="fa fa-list-ol" aria-hidden="true"></i> How many routes?</h2>
-                <div class="card col-lg-12 ">
-                    <div class="input-group transfer">
-                        <input type="text" name="resultsCount" aria-label="duration of transfer" 
-                        [(ngModel)]="bookingService.searchParams.resultsCount">
-                        <div class="input-group-btn">
-                            <button type="button" class="datepicker" data-toggle="dropdown" 
-                            aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li *ngFor="let i of resultsCountList" (click)="bookingService.searchParams.resultsCount = i;">
-                                    <a>{{i}} result</a></li>
-                            </ul>
-                        </div>
+                    <div class="card col-lg-12 ">
+                        <div ngbDropdown class="d-inline-block">
+                            <button type="button" class="btn btn-outline-primary" id="resultsCountDropdownMenu" ngbDropdownToggle>
+                                {{bookingService.searchParams.resultsCount}}</button>
+                            <div class="dropdown-menu" aria-labelledby="resultsCountDropdownMenu">
+                                <button type="button" class="dropdown-item" *ngFor="let i of [1,2,3,4,5]" 
+                                    (click)="bookingService.searchParams.resultsCount = i;">{{i}} routes</button>
+                            </div>
+                        </div> 
                     </div>
                 </div>
-            </div>
 
             <div class="col-xs-12  col-lg-4 nopadding-right">
                 <br />
                 <h2><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 
                 How long you need to change trains?</h2>
                 <div class="card col-lg-12 ">
-                    <div class="input-group transfer">
-                        <input type="text" name="minTransferTime" aria-label="duration of transfer" 
-                        [(ngModel)]="bookingService.searchParams.minTransferTime" />
-
-                        <div class="input-group-btn">
-                            <button type="button" class="datepicker" data-toggle="dropdown" 
-                                aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                                            
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li *ngFor="let i of minTransferTimeList" (click)="bookingService.minTransferTime.resultsCount = i;">
-                                    <a>{{i}} result</a></li>
-                            </ul>
+                    <div ngbDropdown class="d-inline-block">
+                        <button type="button" class="btn btn-outline-primary" id="minTransferTimeDropdownMenu" ngbDropdownToggle>
+                            {{bookingService.searchParams.minTransferTime}}</button>
+                        <div class="dropdown-menu" aria-labelledby="minTransferTimeDropdownMenu">
+                            <button type="button" class="dropdown-item" *ngFor="let i of [5,10,15,20,25,30]" 
+                                (click)="bookingService.searchParams.minTransferTime = i;">{{i}} minutes</button>
                         </div>
                     </div>
                 </div>
@@ -144,10 +127,8 @@
 
         <div class="row" *ngIf="bookingService.searchParams.referenceLocalDateTime">
             <div class="col-xs-12 col-sm-6">
-                <button class="advance-search" type="button" data-toggle="collapse" 
-                    data-target="#advanceSearch" aria-expanded="false" aria-controls="advanceSearch">
-                <button type="button" (click)="isExpanded = !isExpanded" aria-expanded="false" aria-controls="advanceSearch">
-                    <i class="fa fa-plus" aria-hidden="true"></i> More search options
+                <button type="button" (click)="isAdvancedSearchExpanded = !isAdvancedSearchExpanded" >
+                    <i class="fa fa-plus" aria-hidden="true"></i> {{ !isAdvancedSearchExpanded ? 'More' : 'Less'}} search options                                    
                 </button>
             </div>
             <div class="col-xs-12 col-sm-6">
@@ -159,5 +140,6 @@
             </div>
             <div class="col-xs-12"></div>
         </div>
-    </div>
+
+    </div>    
 </form>

@@ -1,15 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbTimeStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { RODateParserFormatter } from './date-parser-formatter';
 
 @Component({
     selector:'rtt-date-time',
-    templateUrl:'./date-time.component.html'
     templateUrl:'./date-time.component.html',
-    providers: [{ provide: NgbDateParserFormatter, useClass: RODateParserFormatter }] // define custom NgbDatepickerI18n provider
+    //providers: [{ provide: NgbDateParserFormatter, useClass: RODateParserFormatter }] // define custom NgbDatepickerI18n provider
 })
-export class DateTimeComponent {
+export class DateTimeComponent implements OnChanges, OnInit {
 
     @Input() dateTime: Date;
     @Output() dateTimeChange = new EventEmitter();
@@ -18,18 +16,19 @@ export class DateTimeComponent {
     private time: NgbTimeStruct;
     private lastHour = -1;
 
-    constructor(){
+    updateUIBindings(){
         if(!this.dateTime){
             let now = new Date();
+
             this.dateTime = new Date(
                 now.getFullYear(), now.getMonth(),now.getDate(),
                 now.getHours(), now.getMinutes(), 0);
         }
+
         this.date = {
             year: this.dateTime.getFullYear(),
             month: this.dateTime.getMonth(),
             day: this.dateTime.getDate()
-            day: this.dateTime.getDate(),
         };    
 
         this.time = {
@@ -38,8 +37,18 @@ export class DateTimeComponent {
             second:this.dateTime.getSeconds()
         };   
 
-        this.lastHour = this.time.hour;    
+        this.lastHour = this.time.hour;
     }
+
+    ngOnInit(){
+        this.updateUIBindings();
+    }
+    
+    ngOnChanges() {
+        this.updateUIBindings();
+    }
+
+    constructor(){ }
 
     change(): void {
 
@@ -73,6 +82,8 @@ export class DateTimeComponent {
             this.time.hour,
             this.time.minute,
             this.time.second);
+
+            //newDateTime = new Date(newDateTime.getTime() - newDateTime.getTimezoneOffset() * 60000);
 
         this.dateTimeChange.emit(newDateTime);
     }

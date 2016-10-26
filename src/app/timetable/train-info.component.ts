@@ -12,7 +12,13 @@ export class TrainInfoComponent implements OnInit {
 
     private referenceLocalDateTime: Date;
     private operatingSchedules: any[];
-    private data: any[] = [];
+    private trainStops: any[];
+    private facilitySegments: any[];
+    private pricingCategorySegments: any[];
+    private serviceBrand: string;
+    private serviceNumber: string;
+    private serviceMode: string;
+
     private showOpDays: boolean = false;
 
     constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute,) { }     
@@ -26,12 +32,19 @@ export class TrainInfoComponent implements OnInit {
             this.apiService.post(ApiUrl.routeInfoApiUrl, {
                 serviceIndex: parseInt(params['serviceIndex'])
             }).forEach((result) => {
-                this.data = result;
-                this.operatingSchedules = result.operatingSchedules.map((operatingSchedule:any) => {
+                this.serviceBrand = result.serviceBrand;
+                this.serviceNumber = result.serviceNumber;
+                this.serviceMode = result.serviceMode;
+
+                this.trainStops = result.trainStops;
+                this.facilitySegments = result.facilitySegments;
+                this.pricingCategorySegments = result.pricingCategorySegments;
+
+                this.operatingSchedules = result.operatingSchedules.map((os:any) => {
                     return {
-                        serviceIndex: operatingSchedule.serviceIndex,
-                        firstDayOfOperation: new Date(operatingSchedule.firstDayOfOperation),
-                        operatingDays: operatingSchedule.operationSchedule,
+                        serviceIndex: os.serviceIndex,
+                        firstDayOfOperation: new Date(os.firstDayOfOperation),
+                        operatingDays: os.operationSchedule,
                     }
                 });
             });
