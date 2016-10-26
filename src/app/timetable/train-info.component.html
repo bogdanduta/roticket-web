@@ -25,8 +25,8 @@
     </div>
     <div class="container card">
         <div class="col-xs-8 col-sm-10  route-info">
-            <h1>Route {{data.serviceBrand}} {{data.serviceNumber}}</h1>
-            <h2>{{data.serviceMode}}</h2>
+            <h1>Route {{serviceBrand}} {{serviceNumber}}</h1>
+            <h2>{{serviceMode}}</h2>
         </div>
         <div class="col-xs-4 col-sm-2  route-info-date" (click)="showOpDays = !showOpDays">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{referenceLocalDateTime | date:'dd.MM.yyyy'}}
@@ -34,18 +34,17 @@
         <div class="clearfix"></div>
     </div>
     <div class="container no-padding">
-        <button class="btn operatingDay collapsed" type="button" data-toggle="collapse" 
-            [attr.data-target] = "'#toggleOperatingDay'" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn operatingDay" type="button" (click)="isCalendarCollapsed = !isCalendarCollapsed"
+                aria-expanded="false" aria-controls="collapseExample">
             <span class="showtxt">Show</span><span class="hidetxt">Hide</span> operating days
         </button>
-        <div class="collapse" id="toggleOperatingDay" [ngClass]="{in : showOpDays}">
-            <div class="well ">
 
-                <rtt-operating-calendar *ngIf="operatingSchedules"
+        <div [ngbCollapse]="isCalendarCollapsed" [ngClass]="{in : showOpDays}">
+            <div class="well ">
+                <!--<rtt-operating-calendar *ngIf="operatingSchedules"
                                          [operatingSchedules]="operatingSchedules"
                                          [selectedLocalDateTime]="referenceLocalDateTime">
-                </rtt-operating-calendar>
-
+                </rtt-operating-calendar>-->
             </div>
         </div>
     </div>
@@ -63,30 +62,30 @@
             <div class="clearfix"></div>
         </div>
 
-        <div class="rand" *ngFor="let trainStop of data.trainStops">
+        <div class="rand" *ngFor="let trainStop of trainStops">
             <div class="no-padding-xs col-xs-8 col-sm-7 station">
                 <div class="no-padding-xs col-xs-12 col-sm-8"><strong>{{trainStop.stationName}}</strong></div>
                 <div class="no-padding-xs col-xs-12 visible-xs dep-arr">
-                    Arrival {{trainStop.arrivalLocalTime}}
+                    Arrival {{trainStop.arrivalLocalTime | minutesToTimeSpan}}
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                    Departure {{trainStop.departureLocalTime}}
+                    Departure {{trainStop.departureLocalTime | minutesToTimeSpan}}
                 </div>
                 <div class="hidden-xs">
-                    <a class="col-xs-6 col-sm-2 arrival" [routerLink]="['/station-info',
+                    <a class="col-xs-6 col-sm-2 arrival" [routerLink]="['/timetable/station-info',
                          trainStop.stationIndex,
                          'arrival',
                          referenceLocalDateTime.getTime()]">
                         <span class="visible-xs-inline">Arrival</span>
-                        {{trainStop.arrivalLocalTime}}
+                        {{trainStop.arrivalLocalTime | minutesToTimeSpan}}
                     </a>
-                    <a class="col-xs-6 col-sm-2 departure" [routerLink]="['/station-info',
+                    <a class="col-xs-6 col-sm-2 departure" [routerLink]="['/timetable/station-info',
                          trainStop.stationIndex,
                          'departure',
                          referenceLocalDateTime.getTime()]">
                         <span class="visible-xs-inline">
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Departure
                         </span>
-                        {{trainStop.departureLocalTime}}
+                        {{trainStop.departureLocalTime | minutesToTimeSpan}}
                     </a>
                 </div>
             </div>
@@ -97,14 +96,14 @@
     <div class="clearfix"></div>
     <div>
         <ul>
-            <li *ngFor="let fs of data.facilitySegments">
+            <li *ngFor="let fs of facilitySegments">
                 {{fs.facilityType}} - {{fs.reservationCharacteristic}} ({{fs.originLocationName}} -> {{fs.destinationLocationName}})
             </li>
         </ul>
     </div>
     <div>
         <ul>
-            <li *ngFor="let fs of data.pricingCategorySegments">
+            <li *ngFor="let fs of pricingCategorySegments">
                 {{fs.pricingCategory}} ({{fs.originLocationName}} -> {{fs.destinationLocationName}})
             </li>
         </ul>

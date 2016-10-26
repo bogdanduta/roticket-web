@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 
-//import * as _ from 'underscore';
-
 const MILLISECONDS_IN_A_DAY:number = 24 * 60 * 60 * 1000;
 
 @Component({
@@ -27,7 +25,7 @@ export class OperatingCalendarComponent implements OnInit {
 
         let firstDayOfOperation = new Date();
         //let firstDayOfOperation = _.min<Date>(this.operatingSchedules.map((os: any) => {
-        //    return os.firstDayOfOperation;
+        //   return os.firstDayOfOperation;
         //}));
         
         let lastDayOfOperation = new Date();

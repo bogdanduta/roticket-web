@@ -26,6 +26,7 @@ import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
         MinutesToLocalTimePipe
     ],
     exports: [
+        NgbModule,
         DateTimeComponent,
         StationTypeaheadComponent,
         OperatingCalendarComponent,

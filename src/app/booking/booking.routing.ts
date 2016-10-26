@@ -12,7 +12,8 @@ import { BookingStep } from './booking-step';
 
 const bookingRoutes: Routes = [
     {
-        path: 'booking',
+        //path: 'booking',
+        path: '',
         component: BookingComponent,
         children: [
             {
@@ -47,11 +48,11 @@ const bookingRoutes: Routes = [
             }
         ]
     },
-    {
-        path: '',
-        redirectTo: '/booking/search',
-        pathMatch: 'full'
-    },
+    // {
+    //     path: '',
+    //     redirectTo: '/booking/search',
+    //     pathMatch: 'full'
+    // },
 ];
 
 export const bookingRouting: ModuleWithProviders = RouterModule.forChild(bookingRoutes);

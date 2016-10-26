@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbTimeStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { RODateParserFormatter } from './date-parser-formatter';
 
@@ -7,7 +7,7 @@ import { RODateParserFormatter } from './date-parser-formatter';
     templateUrl:'./date-time.component.html',
     //providers: [{ provide: NgbDateParserFormatter, useClass: RODateParserFormatter }] // define custom NgbDatepickerI18n provider
 })
-export class DateTimeComponent implements OnChanges {
+export class DateTimeComponent implements OnChanges, OnInit {
 
     @Input() dateTime: Date;
     @Output() dateTimeChange = new EventEmitter();
@@ -16,7 +16,7 @@ export class DateTimeComponent implements OnChanges {
     private time: NgbTimeStruct;
     private lastHour = -1;
 
-    ngOnChanges() {
+    updateUIBindings(){
         if(!this.dateTime){
             let now = new Date();
 
@@ -38,6 +38,14 @@ export class DateTimeComponent implements OnChanges {
         };   
 
         this.lastHour = this.time.hour;
+    }
+
+    ngOnInit(){
+        this.updateUIBindings();
+    }
+    
+    ngOnChanges() {
+        this.updateUIBindings();
     }
 
     constructor(){ }

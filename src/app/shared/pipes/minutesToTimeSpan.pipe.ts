@@ -4,6 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MinutesToTimeSpanPipe implements PipeTransform {
   transform(totalMinutes: number): string {
     
+    if(totalMinutes === undefined || totalMinutes === null){
+      return '';
+    }
     let hours =  Math.floor(totalMinutes / 60);
     let result = '';
     

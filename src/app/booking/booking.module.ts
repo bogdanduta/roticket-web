@@ -23,14 +23,11 @@ import { BookingService } from './booking.service';
 import { ApiService } from '../core/api.service';
 import  { ApiUrl } from '../core/api-url';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 @NgModule({
     imports:[
         FormsModule,
         CommonModule,
         bookingRouting,
-        NgbModule,
         SharedModule
     ],
 

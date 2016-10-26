@@ -13,8 +13,9 @@ import { ApiService }   from './core/api.service';
 
 import { AppComponent } from './app.component';
 
-import { BookingModule }     from './booking/booking.module';
-import { TimetableModule }     from './timetable/timetable.module';
+import { HomeComponent }     from './home.component';
+//import { BookingModule }     from './booking/booking.module';
+//import { TimetableModule }     from './timetable/timetable.module';
 
 @NgModule({
   imports: [ 
@@ -22,12 +23,12 @@ import { TimetableModule }     from './timetable/timetable.module';
     HttpModule,
 
     routing,
-
-    BookingModule,
-    TimetableModule,
+    //BookingModule,
+    //TimetableModule,
   ],
   declarations: [ 
-    AppComponent
+    AppComponent,
+    HomeComponent,
   ],
   providers:[
     ApiService,
