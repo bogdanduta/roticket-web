@@ -1,8 +1,11 @@
 import { Injectable }   from '@angular/core';
 import { ApiService }   from '../core/api.service';
 import { ApiUrl }   from '../core/api-url';
-import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent }       from '@angular/router';
-import { JourneySearchParams }   from './journeySearchParams';
+import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
+
+import  { DateTime } from '../core/date-time';
+import  { SearchDirection } from '../core/search-direction';
+import { JourneySearchParams }   from '../core/journey-search-params';
 
 //import * as _ from 'underscore/underscore';
 //var _ = require('underscore');
@@ -15,7 +18,7 @@ const MILLISECONDS_IN_A_SECOND:number = 1000;
 export class BookingService {
 
     bookingSteps: BookingStep[];
-    currentStep:BookingStep;
+    currentStep: BookingStep;
 
     showSpinner: boolean = false;
     showRoutes: boolean = false;
@@ -42,16 +45,16 @@ export class BookingService {
         private activatedRoute: ActivatedRoute) {
 
         this.departureLocation = {
-            displayName: "BUCURESTI (all stations)", 
-            index: 70051, 
-            isCity: true, 
-            countryName: "Romania"}
-        ;
+            displayName: "Bucuresti Nord Gara A", 
+            index: 9029, 
+            isCity: false,
+            countryName: "Romania"
+        };
 
         this.arrivalLocation = {
-                displayName: "BUDAPEST (all stations)", 
-                index: 70052, 
-                isCity: true, 
+                displayName: "Budapest-Keleti", 
+                index: 9050, 
+                isCity: false,
                 countryName: "Hungary"
         };
         
@@ -59,37 +62,11 @@ export class BookingService {
         this.searchType = 'oneWay';
 
         let now = new Date();
+        now = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 
+            now.getHours(), now.getMinutes(), 0));
 
-        let referenceLocalDateTime = new Date(now.getTime()
-            - now.getTimezoneOffset() * MILLISECONDS_IN_A_MINUTE
-            - now.getSeconds() * MILLISECONDS_IN_A_SECOND
-            - now.getMilliseconds());
-
-        this.searchParams = {
-            searchDirection: 'forward',
-            referenceLocalDateTime: referenceLocalDateTime,
-            minTransferTime: 5,
-            maxNumberOfChanges: 5,
-            resultsCount: 1,
-            searchCriteria: 'DurationFirst',
-            stationValidityInMinutes: 7 * 60,
-            arrivalLocationIndex: null,
-            departureLocationIndex: null,
-            ignoreTransitLocalTrains: true,
-        };
-
-        this.returnSearchParams = {
-            searchDirection: 'forward',
-            referenceLocalDateTime: referenceLocalDateTime,
-            minTransferTime: 5,
-            maxNumberOfChanges: 5,
-            resultsCount: 1,
-            searchCriteria: 'DurationFirst',
-            stationValidityInMinutes: 7 * 60,
-            arrivalLocationIndex: null,
-            departureLocationIndex: null,
-            ignoreTransitLocalTrains:true,
-        };
+        this.searchParams = new JourneySearchParams (now, SearchDirection.Forward, 5, 5, 1);
+        this.returnSearchParams = new JourneySearchParams (now, SearchDirection.Forward, 5, 5, 1);           
     }
 
     getStepStatus(step: BookingStep): string {
@@ -104,25 +81,6 @@ export class BookingService {
             return 'current';
         }
         return "";
-    }
-
-    departureLocationChange(newLocation: any): void {
-        this.departureLocation = newLocation;
-        if(newLocation){            
-            console.log(`departureLocationUpdated from booking.service: ${newLocation.displayName}`);
-        }
-    }
-    arrivalLocationChange(newLocation: any): void {
-        this.arrivalLocation = newLocation;
-        if(newLocation){            
-            console.log(`arrivalLocationUpdated from booking.service: ${newLocation.displayName}`);
-        }
-    }
-    outwardDateTimeChange(newDate: Date): void {
-        console.log(`outwardDateTimeChange from booking.service to ${newDate}`);
-    }
-     returnDateTimeChange(newDate: Date): void {
-        console.log(`returnDateTimeChange from booking.service to ${newDate}`);
     }
 
     changeSearchType(newSearchType:string): void {
@@ -148,6 +106,10 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
+        // queryParams.referenceLocalDateTime = 
+        //     new Date(this.searchParams.referenceLocalDateTime.getTime() 
+        //     - this.searchParams.referenceLocalDateTime.getTimezoneOffset() * MILLISECONDS_IN_A_MINUTE);
+
         this.journeyList = [];
         this.getNextJourney(queryParams, queryParams.resultsCount);
     }
@@ -169,14 +131,18 @@ export class BookingService {
             this.showSpinner = false;
             this.showRoutes = true;
 
-            let durationFirstJourney = result.journeyList[0];
+            let referenceJourney = result.journeyList[0];
 
             result.journeyList.forEach((journey:any) => {
                 this.journeyList.push(journey);
             });
 
-            queryParams.referenceLocalDateTime = new Date(new Date(durationFirstJourney.departureLocalDateTime)
-                .getTime() + MILLISECONDS_IN_A_MINUTE)
+            queryParams.referenceLocalDateTime = new Date(new Date(referenceJourney.departureLocalDateTime)
+                .getTime() + MILLISECONDS_IN_A_MINUTE);
+            
+            //queryParams.referenceLocalDateTime = 
+            //    (referenceJourney.departureLocalDateTime as DateTime).addMinute(1);
+
             this.getNextJourney(queryParams, remainingJourneys - 1);
 
         }, (error) => {
@@ -208,7 +174,6 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        //var lastDepartureLocalDateTime = new Date(_.last(this.journeyList).departureLocalDateTime);
         var lastDepartureLocalDateTime = new Date();
         queryParams.referenceLocalDateTime = new Date(lastDepartureLocalDateTime.getTime() + 60000);
         queryParams.searchDirection = 'forward';

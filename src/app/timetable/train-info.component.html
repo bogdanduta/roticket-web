@@ -29,7 +29,7 @@
             <h2>{{serviceMode}}</h2>
         </div>
         <div class="col-xs-4 col-sm-2  route-info-date" (click)="showOpDays = !showOpDays">
-            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{referenceLocalDateTime | date:'dd.MM.yyyy'}}
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{referenceLocalDateTime | fixTimezone | date:'dd.MM.yyyy'}}
         </div>
         <div class="clearfix"></div>
     </div>
@@ -41,6 +41,7 @@
 
         <div [ngbCollapse]="isCalendarCollapsed" [ngClass]="{in : showOpDays}">
             <div class="well ">
+                Operating days
                 <!--<rtt-operating-calendar *ngIf="operatingSchedules"
                                          [operatingSchedules]="operatingSchedules"
                                          [selectedLocalDateTime]="referenceLocalDateTime">

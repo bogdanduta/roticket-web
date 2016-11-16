@@ -11,30 +11,15 @@
                             <rtt-station-typeahead [(location)]="station"></rtt-station-typeahead>
                         </div>
 
-                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>                        
 
-                        
+                        <rtt-date-time-direction 
+                            [(dateTime)]="referenceLocalDateTime"
+                            [(direction)]="stationEventType"
+                            (directionChange)="stationEventTypeChange($event)"
+                            [directionValues]="['departure','arrival']"></rtt-date-time-direction>
 
-                        <rtt-date-time [(dateTime)]="referenceLocalDateTime"></rtt-date-time>
-
-                        <div class="clearfix"></div>
-
-                         <div class="btn-group btn-group-justified direction" role="group" aria-label="...">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn"
-                                        [ngClass]="{'btn-success': stationEventType == 'departure'}"
-                                        (click)="setStationEventType('departure')">
-                                    <span>Departure</span>
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn"
-                                        [ngClass]="{'btn-success': stationEventType == 'arrival'}"
-                                        (click)="setStationEventType('arrival')">
-                                    <span>Arrival</span>
-                                </button>
-                            </div>
-                        </div>
+                        <div class="clearfix"></div>                         
 
                     </div>
 
@@ -53,7 +38,9 @@
             <div class="row">
                 <div class="load-more" (click)="loadEvents(-1)">Load earlier</div>
             </div>
-
+            <div>
+               {{ stationEventType }} from/at {{ station.displayName }} at {{ referenceLocalDateTime | fixTimezone | date:'HH:mm'}}
+            </div>
             <div class="row station-list" *ngFor="let event of stationEvents">
                 <div class="col-xs-4 col-sm-1"><i class="fa fa-clock-o visible-xs-inline" aria-hidden="true"></i> 
                 {{event.eventLocalTime | minutesToTimeSpan}}</div>

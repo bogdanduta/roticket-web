@@ -28,10 +28,7 @@
 
                 <div class="dep-journey">
                     <div class="country">From</div>
-                    <rtt-station-typeahead
-                        [location]="bookingService.departureLocation"
-                        (locationChange)="bookingService.departureLocationChange($event)">                        
-                    </rtt-station-typeahead>
+                    <rtt-station-typeahead [location]="bookingService.departureLocation"></rtt-station-typeahead>
                 </div>
             
                 <button (click)="bookingService.swapLocations()" type="button" class="btn swap" aria-label="swap" tabindex="3">
@@ -41,10 +38,7 @@
 
                 <div class="arr-journey">
                     <div class="country">To</div>
-                    <rtt-station-typeahead 
-                        [location]="bookingService.arrivalLocation"
-                        (locationChange)="bookingService.arrivalLocationChange($event)">                        
-                    </rtt-station-typeahead>
+                    <rtt-station-typeahead [(location)]="bookingService.arrivalLocation"></rtt-station-typeahead>
                 </div>
 
                 <div class="clearfix"></div>
@@ -60,7 +54,10 @@
                 Outward date
             </h2>
 
-            <rtt-date-time (dateTimeChange)="bookingService.outwardDateTimeChange($event)"> </rtt-date-time>
+            <rtt-date-time-direction 
+                [(dateTime)]="bookingService.searchParams.referenceLocalDateTime"
+                [(direction)]="bookingService.searchParams.searchDirection"
+                [directionValues]="['forward','backward']"></rtt-date-time-direction>
         </div>
 
         <div  [ngClass]="{'soon': bookingService.searchType === 'oneWay'}" class="col-xs-12  col-lg-6 nopadding-right">
@@ -70,7 +67,10 @@
                 Return date
             </h2>
 
-            <rtt-date-time (dateTimeChange)="bookingService.returnDateTimeChange($event)"></rtt-date-time>
+            <rtt-date-time-direction 
+                [(dateTime)]="bookingService.returnSearchParams.referenceLocalDateTime"
+                [(direction)]="bookingService.returnSearchParams.searchDirection"
+                [directionValues]="['forward','backward']"></rtt-date-time-direction>
         </div>
     </div>
 

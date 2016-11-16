@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { DateTimeComponent } from './date-time/date-time.component';
+import { DateTimeDirectionComponent } from './date-time-direction/date-time-direction.component';
 import { StationTypeaheadComponent } from './station-typeahead/station-typeahead.component';
 import { OperatingCalendarComponent } from './operating-calendar/operating-calendar.component';
 
 import { MinutesToTimeSpanPipe } from './pipes/minutesToTimeSpan.pipe';
 import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
+import { FixTimezonePipe } from './pipes/fix-timezone.pipe';
 
 @NgModule({
     imports: [
@@ -19,19 +20,21 @@ import { MinutesToLocalTimePipe } from './pipes/minutesToLocalTime.pipe';
         RouterModule
     ],
     declarations: [
-        DateTimeComponent,
+        DateTimeDirectionComponent,
         StationTypeaheadComponent,
         OperatingCalendarComponent,
         MinutesToTimeSpanPipe,
-        MinutesToLocalTimePipe
+        MinutesToLocalTimePipe,
+        FixTimezonePipe
     ],
     exports: [
         NgbModule,
-        DateTimeComponent,
+        DateTimeDirectionComponent,
         StationTypeaheadComponent,
         OperatingCalendarComponent,
         MinutesToTimeSpanPipe,
-        MinutesToLocalTimePipe
+        MinutesToLocalTimePipe,
+        FixTimezonePipe
     ]
 })
 export class SharedModule {}

@@ -16,7 +16,7 @@
                 <div class="col-xs-12 col-sm-3 train">
                     <span class="pull-right-sm">
                         <template ngFor let-train [ngForOf]="segment.trains">
-                            <a [routerLink]="['/train-info', train.trainIndex, getReferenceLocalDateTime(train.trainReferenceLocalDateTime)]" target="_blank">
+                            <a [routerLink]="['/timetable/train-info', train.trainIndex, getReferenceLocalDateTime(train.trainReferenceLocalDateTime)]" target="_blank">
                                 <span class="transport train"> {{train.serviceNumber}}</span>
                             </a>                        
                             <span ng-repeat-end class="services">

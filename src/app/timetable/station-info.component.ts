@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ApiService } from '../core/api.service';
 import { ApiUrl } from '../core/api-url';
+import { SearchDirection } from '../core/search-direction';
 
 const MILLISECONDS_IN_AN_HOUR = 60 * 60 * 1000;
 
@@ -23,7 +24,7 @@ export class StationInfoComponent implements OnInit {
         private router: Router) { }     
 
     ngOnInit() {        
-
+        
         this.activatedRoute.params.forEach((params: Params) => {
         
             if (params['referenceLocalDateTime']) {
@@ -33,7 +34,8 @@ export class StationInfoComponent implements OnInit {
 
                 this.apiService.post(ApiUrl.stationInfoApiUrl, {
                     stationIndex: this.locationIndex,
-                    referenceLocalDateTime: this.referenceLocalDateTime,
+                    referenceLocalDateTime: new Date(this.referenceLocalDateTime.getTime() 
+                        - this.referenceLocalDateTime.getTimezoneOffset() * 60 * 1000),
                     stationEventType: this.stationEventType,
                     }).forEach((result) => {
                         this.station = {
@@ -45,9 +47,11 @@ export class StationInfoComponent implements OnInit {
             }
             else {
                 let now = new Date();
+                now = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 
+                    now.getHours(), now.getMinutes(), 0));
 
-                this.referenceLocalDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 
-                        now.getHours(), now.getMinutes() - now.getTimezoneOffset(), 0);
+                this.referenceLocalDateTime = now;
+
                 this.stationEventType = 'departure';
                 this.locationIndex = 9029;
 
@@ -59,10 +63,6 @@ export class StationInfoComponent implements OnInit {
                 };
             }
         });
-    }
-    
-    setStationEventType(stationEventType:string) {
-        this.stationEventType = stationEventType;
     }
 
     loadEvents(hoursOffset: number) {
