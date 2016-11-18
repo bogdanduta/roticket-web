@@ -173,7 +173,7 @@ export class BookingService {
                 .getTime() + MILLISECONDS_IN_A_MINUTE);
         queryParams.searchDirection = 'forward';
 
-        this.showSpinner = true;
+        this.showSpinner = true; 
         this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {  
             this.showSpinner = false;          
             this.journeyGroupList.push(result.journeyList);
