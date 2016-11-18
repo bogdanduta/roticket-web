@@ -28,7 +28,7 @@ export class BookingService {
     searchType: string;
 
     journeyResults: number = 4;
-    journeyList: any[];
+    journeyGroupList: any[];
 
     departureLocation: any;
     arrivalLocation: any;
@@ -108,7 +108,7 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        this.journeyList = [];
+        this.journeyGroupList = [];
         
         this.getNextJourney(queryParams, queryParams.resultsCount);
     }
@@ -133,9 +133,7 @@ export class BookingService {
 
             let referenceJourney = result.journeyList[0];
 
-            result.journeyList.forEach((journey: any) => {
-                this.journeyList.push(journey);
-            });
+            this.journeyGroupList.push(result.journeyList);          
 
             //increse referenceLocalDateTime by 1 minute from last departureLocalDateTime
             queryParams.referenceLocalDateTime = new Date(new Date(referenceJourney.departureLocalDateTime)
@@ -170,16 +168,15 @@ export class BookingService {
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        var lastDepartureLocalDateTime = new Date();
-        queryParams.referenceLocalDateTime = new Date(lastDepartureLocalDateTime.getTime() + 60000);
+        let referenceJourney = this.journeyGroupList[this.journeyGroupList.length - 1][0];
+        queryParams.referenceLocalDateTime = new Date(new Date(referenceJourney.departureLocalDateTime)
+                .getTime() + MILLISECONDS_IN_A_MINUTE);
         queryParams.searchDirection = 'forward';
 
         this.showSpinner = true;
-        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
-            result.journeyList.forEach((journey:any) => {
-                this.journeyList.push(journey);
-                this.showSpinner = false;
-            });
+        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {  
+            this.showSpinner = false;          
+            this.journeyGroupList.push(result.journeyList);
         });
     }
 
@@ -209,7 +206,7 @@ export class BookingService {
         this.showSpinner = true;
         this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
             result.journeyList.forEach((journey:any) => {
-                this.journeyList.unshift(journey);
+                this.journeyGroupList.unshift(journey);
                 this.showSpinner = false;
             });
         });

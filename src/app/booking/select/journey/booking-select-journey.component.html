@@ -46,8 +46,10 @@
         <div class="load-routes" (click)="bookingService.loadEarlierJourneys()">Load earlier routes</div>
     </div>
 
-    <rtt-journey-detail *ngFor="let journey of bookingService.journeyList" [journey]="journey">        
-    </rtt-journey-detail>
+    <div *ngFor="let journeyGroup of bookingService.journeyGroupList" class="journey-group">
+        <rtt-journey-detail *ngFor="let journey of journeyGroup" [journey]="journey">        
+        </rtt-journey-detail>
+    </div>
 
     <div class="preloader2" *ngIf="bookingService.showSpinner">
         <div class="roata"></div> <div class="roata"></div> <div class="osie"><div class="brat"></div></div>
