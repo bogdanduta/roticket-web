@@ -26,7 +26,7 @@
     <div class="container card">
         <div class="col-xs-8 col-sm-10  route-info">
             <h1>Route {{serviceBrand}} {{serviceNumber}}</h1>
-            <h2>{{serviceMode}}</h2>
+            <h2>{{serviceMode}} - {{trainStops ? trainStops.length + ' staions' : '..'}}</h2>
         </div>
         <div class="col-xs-4 col-sm-2  route-info-date" (click)="showOpDays = !showOpDays">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{referenceLocalDateTime | fixTimezone | date:'dd.MM.yyyy'}}
@@ -41,11 +41,10 @@
 
         <div [ngbCollapse]="isCalendarCollapsed" [ngClass]="{in : showOpDays}">
             <div class="well ">
-                Operating days
-                <!--<rtt-operating-calendar *ngIf="operatingSchedules"
+                <rtt-operating-calendar *ngIf="operatingSchedules"
                                          [operatingSchedules]="operatingSchedules"
                                          [selectedLocalDateTime]="referenceLocalDateTime">
-                </rtt-operating-calendar>-->
+                </rtt-operating-calendar>
             </div>
         </div>
     </div>
@@ -54,7 +53,7 @@
         <div class="rand head">
             <div class="no-padding-xs col-xs-8 col-sm-7 station">
                 <div class="no-padding-xs col-xs-12 col-sm-8"><i class="fa fa-map-marker" aria-hidden="true"></i> Station</div>
-                <div class="hidden-xs">
+                <div class="hidden-xs-down">
                     <div class="col-xs-6 col-sm-2 arrival">Arrival</div>
                     <div class="col-xs-6 col-sm-2 departure">Departure</div>
                 </div>
@@ -66,24 +65,24 @@
         <div class="rand" *ngFor="let trainStop of trainStops">
             <div class="no-padding-xs col-xs-8 col-sm-7 station">
                 <div class="no-padding-xs col-xs-12 col-sm-8"><strong>{{trainStop.stationName}}</strong></div>
-                <div class="no-padding-xs col-xs-12 visible-xs dep-arr">
+                <div class="no-padding-xs col-xs-12 hidden-sm-up dep-arr">
                     Arrival {{trainStop.arrivalLocalTime | minutesToTimeSpan}}
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     Departure {{trainStop.departureLocalTime | minutesToTimeSpan}}
                 </div>
-                <div class="hidden-xs">
+                <div class="hidden-xs-down">
                     <a class="col-xs-6 col-sm-2 arrival" [routerLink]="['/timetable/station-info',
                          trainStop.stationIndex,
                          'arrival',
                          referenceLocalDateTime.getTime()]">
-                        <span class="visible-xs-inline">Arrival</span>
+                        <span class="hidden-sm-up">Arrival</span>
                         {{trainStop.arrivalLocalTime | minutesToTimeSpan}}
                     </a>
                     <a class="col-xs-6 col-sm-2 departure" [routerLink]="['/timetable/station-info',
                          trainStop.stationIndex,
                          'departure',
                          referenceLocalDateTime.getTime()]">
-                        <span class="visible-xs-inline">
+                        <span class="hidden-sm-up">
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Departure
                         </span>
                         {{trainStop.departureLocalTime | minutesToTimeSpan}}
@@ -93,6 +92,7 @@
             <div class="no-padding-xs col-xs-4 col-sm-5 comment">Train continues as TGV 2852</div>
             <div class="clearfix"></div>
         </div>
+
     </div>
     <div class="clearfix"></div>
     <div>

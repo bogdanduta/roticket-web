@@ -5,9 +5,12 @@ import { BookingService } from '../../booking.service';
     templateUrl: './booking-select-journey.component.html'
 })
 export class BookingSelectJourneyComponent implements OnInit {
-    constructor(private bookingService: BookingService) { }
+    constructor(private bookingService: BookingService) { 
+        console.debug('BookingSelectJourneyComponent constructor');
+    }
 
     ngOnInit(): void{
+        console.debug('BookingSelectJourneyComponent ngOnInit');
         this.bookingService.beginSearch(); 
     }
   

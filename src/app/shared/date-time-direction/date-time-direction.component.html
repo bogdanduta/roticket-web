@@ -8,15 +8,19 @@
             </div>
         </div>
 
-        <div [(ngModel)]="direction" (ngModelChange)="onDirectionChange($event)" ngbRadioGroup class="btn-group btn-group-justified direction" 
+        <div [(ngModel)]="direction" (ngModelChange)="onDirectionChange($event)" 
+            ngbRadioGroup class="btn-group btn-group-justified direction" 
             role="group" aria-label="...">
+            
             <div class="btn-group" role="group">
+
                 <label class="btn" [ngClass]="{'btn-success': direction == directionValues[0]}">
                     <input type="radio" [value]="directionValues[0]"> Departure
                 </label>
                  <label class="btn" [ngClass]="{'btn-success': direction == directionValues[1]}">
                     <input type="radio" [value]="directionValues[1]"> Arrival
                 </label>
+                
             </div>            
         </div>
     </div>

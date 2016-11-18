@@ -1,11 +1,10 @@
-test
 <div id="calendar">
     <div class="calendar">
         <div class="mounths">
             <div *ngFor="let trafficMonth of months" class="mounth {{trafficMonth.operatingTypeClass}}" 
                 title="{{trafficMonth.date | date:'dd.MM.yyyy'}}">
                 <label>
-                    <input type="button" [ngModel]="selectedMonth" (click)="selectedMonth = trafficMonth" />
+                    <input type="radio" name="selectedMonth" (click)="selectedMonth = trafficMonth" value="trafficMonth" />
                     <span>{{trafficMonth.date | date:'MMM'}}</span>
                 </label>
             </div>
@@ -17,8 +16,8 @@ test
                      class="date"
                      [ngClass]="{'active': trafficDay.isOperating, 'selected': trafficDay.isSelected}"
                      title="{{trafficDay.date | date:'dd.MM.yyyy'}}">
-                    <a *ngIf="trafficDay.isOperating" [attr.data-distinct-value]="trafficDay.distinctIndex"
-                       [routerLink]="['/train-info', trafficDay.serviceIndex, trafficDay.date.getTime() ]">
+                    <a *ngIf="trafficDay.isOperating" [attr.data-distinct-value]="trafficDay.distinctIndex + 1"
+                       [routerLink]="['/timetable/train-info', trafficDay.serviceIndex, trafficDay.date.getTime() ]">
                        {{trafficDay.displayText}}
                     </a>
                     <span *ngIf="!trafficDay.isOperating">{{trafficDay.displayText}}</span>

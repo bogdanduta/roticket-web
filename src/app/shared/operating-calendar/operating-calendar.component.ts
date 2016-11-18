@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output } from '@angular/core';
 
 const MILLISECONDS_IN_A_DAY:number = 24 * 60 * 60 * 1000;
 
@@ -6,7 +6,7 @@ const MILLISECONDS_IN_A_DAY:number = 24 * 60 * 60 * 1000;
     selector: 'rtt-operating-calendar',
     templateUrl: './operating-calendar.component.html'
 })
-export class OperatingCalendarComponent implements OnInit {
+export class OperatingCalendarComponent implements OnChanges {
     @Input() operatingSchedules: any;
     @Input() selectedLocalDateTime: Date;
   
@@ -15,20 +15,31 @@ export class OperatingCalendarComponent implements OnInit {
     private monthNames = ['ian', 'feb', 'mar', 'apr', 'mai', 'iun', 'iul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     private dayNames = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
 
-    private months: any[] = [];
+    private months: any[];
     private selectedMonth: any;
 
-    ngOnInit(): void {
+    //ngOnInit(): void {
+    ngOnChanges(): void {
         if (!this.operatingSchedules) {
             return;
         }
+        let firstDaysOfOperation = this.operatingSchedules.map((os:any) => {
+            return new Date(os.firstDayOfOperation);
+        }); 
+        firstDaysOfOperation.sort();  
+        let firstDayOfOperation = firstDaysOfOperation[0]; 
 
-        let firstDayOfOperation = new Date();
+        let lastDaysOfOperation = this.operatingSchedules.map((os:any) => {
+            return new Date(os.firstDayOfOperation.getTime() + MILLISECONDS_IN_A_DAY * (os.operatingDays.length - 1));
+        }); 
+        lastDaysOfOperation.sort();  
+        let lastDayOfOperation = lastDaysOfOperation[lastDaysOfOperation.length - 1];
+
         //let firstDayOfOperation = _.min<Date>(this.operatingSchedules.map((os: any) => {
         //   return os.firstDayOfOperation;
         //}));
         
-        let lastDayOfOperation = new Date();
+        //let lastDayOfOperation = new Date();
         //let lastDayOfOperation = _.max<Date>(this.operatingSchedules.map((os: any) => {
         //    return new Date(os.firstDayOfOperation.getTime() + MILLISECONDS_IN_A_DAY * (os.operatingDays.length - 1));
         //}));
@@ -37,9 +48,10 @@ export class OperatingCalendarComponent implements OnInit {
         let calendarEndMonth = new Date(lastDayOfOperation.getFullYear(), lastDayOfOperation.getMonth());
 
         let currentMonthDate = calendarBeginMonth;
-        let months:any[] = [];
+        
         let monthByIndex:any[] = [];
-
+        
+        this.months = [];
         while (currentMonthDate <= calendarEndMonth) {
             let operatingMonth = this.createBlankOperatingMonth(currentMonthDate);
             let year = currentMonthDate.getFullYear();
@@ -95,7 +107,6 @@ export class OperatingCalendarComponent implements OnInit {
         let currentTrafficMonth = monthByIndex[this.selectedLocalDateTime.getFullYear()][this.selectedLocalDateTime.getMonth()];
         currentTrafficMonth.weekDaysByIndex[this.selectedLocalDateTime.getDate()].isSelected = true;
 
-        this.months = months;
         this.selectedMonth = currentTrafficMonth;
     }
 

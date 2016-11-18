@@ -34,8 +34,7 @@ export class StationInfoComponent implements OnInit {
 
                 this.apiService.post(ApiUrl.stationInfoApiUrl, {
                     stationIndex: this.locationIndex,
-                    referenceLocalDateTime: new Date(this.referenceLocalDateTime.getTime() 
-                        - this.referenceLocalDateTime.getTimezoneOffset() * 60 * 1000),
+                    referenceLocalDateTime: this.referenceLocalDateTime,
                     stationEventType: this.stationEventType,
                     }).forEach((result) => {
                         this.station = {

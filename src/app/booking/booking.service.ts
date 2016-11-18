@@ -83,65 +83,63 @@ export class BookingService {
         return "";
     }
 
-    changeSearchType(newSearchType:string): void {
+    changeSearchType(newSearchType:string) {
         this.searchType = newSearchType;
     }
 
-    search(): void {
-        this.router.navigate(['booking/select/outward']);
+    search() {
+        this.router.navigate(['booking/select/outward']).then((navigationSucceeds) => {
+            if(navigationSucceeds){
+                this.beginSearch(); 
+            }
+        });
     }
 
-    beginSearch(): void {
-        let queryParams: any = {};
+    beginSearch() {
+        let queryParams: any = { };
 
         if (this.router.url === '/booking/select/outward') {                        
-            //angular.copy(this.searchParams, queryParams);
             Object.assign(queryParams, this.searchParams);
             queryParams.departureLocationIndex = this.departureLocation.index;
             queryParams.arrivalLocationIndex = this.arrivalLocation.index;
-        } else { // '/booking/select/return'
-            //angular.copy(this.returnSearchParams, queryParams);
+        } else {
             Object.assign(queryParams, this.returnSearchParams);
             queryParams.departureLocationIndex = this.arrivalLocation.index; 
             queryParams.arrivalLocationIndex = this.departureLocation.index;
         }
 
-        // queryParams.referenceLocalDateTime = 
-        //     new Date(this.searchParams.referenceLocalDateTime.getTime() 
-        //     - this.searchParams.referenceLocalDateTime.getTimezoneOffset() * MILLISECONDS_IN_A_MINUTE);
-
         this.journeyList = [];
+        
         this.getNextJourney(queryParams, queryParams.resultsCount);
     }
 
-    modifyJourney(): void {
+    modifyJourney() {
         this.outwardJourney = null;
         this.returnJourney = null;
         this.router.navigate(['booking/search']);
     }
 
-    getNextJourney(queryParams: JourneySearchParams, remainingJourneys: number): void {
+    getNextJourney(queryParams: JourneySearchParams, remainingJourneys: number) {
         if (remainingJourneys == 0) {
             return;
         }
 
         this.showSpinner = true;
-        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then((result) => {
+        
+        this.apiService.post(ApiUrl.journeyApiUrl, queryParams).toPromise().then( (result) => {
 
             this.showSpinner = false;
             this.showRoutes = true;
 
             let referenceJourney = result.journeyList[0];
 
-            result.journeyList.forEach((journey:any) => {
+            result.journeyList.forEach((journey: any) => {
                 this.journeyList.push(journey);
             });
 
+            //increse referenceLocalDateTime by 1 minute from last departureLocalDateTime
             queryParams.referenceLocalDateTime = new Date(new Date(referenceJourney.departureLocalDateTime)
-                .getTime() + MILLISECONDS_IN_A_MINUTE);
-            
-            //queryParams.referenceLocalDateTime = 
-            //    (referenceJourney.departureLocalDateTime as DateTime).addMinute(1);
+                .getTime() + MILLISECONDS_IN_A_MINUTE);        
 
             this.getNextJourney(queryParams, remainingJourneys - 1);
 
@@ -152,7 +150,7 @@ export class BookingService {
         });
     }
 
-    swapLocations(): void {
+    swapLocations() {
         let temp = this.arrivalLocation;
         this.arrivalLocation = this.departureLocation;
         this.departureLocation = temp;
@@ -163,12 +161,10 @@ export class BookingService {
         let queryParams: any = {};
 
         if (this.router.url === '/booking/select/outward') {
-            //angular.copy(this.searchParams, queryParams);
             Object.assign(queryParams, this.searchParams);
             queryParams.departureLocationIndex = this.departureLocation.index;
             queryParams.arrivalLocationIndex = this.arrivalLocation.index;
-        } else { // 'booking.select.return'
-            //angular.copy(this.returnSearchParams, queryParams);
+        } else {
             Object.assign(queryParams, this.returnSearchParams);
             queryParams.departureLocationIndex = this.arrivalLocation.index;
             queryParams.arrivalLocationIndex = this.departureLocation.index;
@@ -219,23 +215,20 @@ export class BookingService {
         });
     }
 
-    setOutwardJourney(journey:any) {
+    setOutwardJourney(journey: any) {
         this.outwardJourney = journey;
-        if (this.searchType === 'oneWay') {
-            this.router.navigate(['booking/select/offer']);
-        } else {
-            this.router.navigate(['booking/select/return']);
-        }
+        this.router.navigate(this.searchType === 'oneWay' ? ['booking/select/offer'] : ['booking/select/return'])
+            .then((navigationSucceeds) => {
+                if(navigationSucceeds) {
+                    this.beginSearch(); 
+                }
+            });       
     }
 
-    setReturnJourney(journey:any) {
+    setReturnJourney(journey: any) {
         this.returnJourney = journey;
         this.router.navigate(['booking/select/offer'])
     }
-
-    //getCurrentStep(): IBookingStep {
-    //    return this.bookingState.Step;
-    //}
 
     showSetOutwardJourneyButton(): boolean {
         return this.router.url === '/booking/select/outward';

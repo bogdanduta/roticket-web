@@ -5,10 +5,10 @@
         <h2 align="center">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
             <span *ngIf="bookingService.showSetOutwardJourneyButton()">
-                Outward journey on {{bookingService.searchParams.referenceLocalDateTime | date:'dd.MM.yyyy HH:mm':'+00'}}
+                Outward journey on {{bookingService.searchParams.referenceLocalDateTime | fixTimezone | date:'dd.MM.yyyy HH:mm':'+00'}}
             </span>
             <span *ngIf="bookingService.showSetReturnJourneyButton()">
-                Return journey on {{bookingService.returnSearchParams.referenceLocalDateTime | date:'dd.MM.yyyy HH:mm':'+00'}}
+                Return journey on {{bookingService.returnSearchParams.referenceLocalDateTime | fixTimezone | date:'dd.MM.yyyy HH:mm':'+00'}}
             </span>
         </h2>
     </div>

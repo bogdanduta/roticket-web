@@ -12,10 +12,10 @@
 
                 <div class="block infos">
                     <span *ngIf="!bookingService.outwardJourney">
-                        earliest dep at: {{bookingService.searchParams.referenceLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                        earliest dep at: {{bookingService.searchParams.referenceLocalDateTime | fixTimezone | date:'d MMM y, HH:mm'}}
                     </span>
                     <span *ngIf="bookingService.outwardJourney">
-                        dep at: {{bookingService.outwardJourney.departureLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                        dep at: {{bookingService.outwardJourney.departureLocalDateTime | fixTimezone | date:'d MMM y, HH:mm'}}
                     </span>
                 </div>
             </div>
@@ -33,10 +33,10 @@
 
             <div class="block infos">
                 <span *ngIf="!bookingService.returnJourney">
-                    earliest dep at: {{bookingService.returnSearchParams.referenceLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                    earliest dep at: {{bookingService.returnSearchParams.referenceLocalDateTime | fixTimezone | date:'d MMM y, HH:mm'}}
                 </span>
                 <span *ngIf="bookingService.returnJourney">
-                    dep at: {{bookingService.returnJourney.departureLocalDateTime | date:'d MMM y, HH:mm': '+00'}}
+                    dep at: {{bookingService.returnJourney.departureLocalDateTime | fixTimezone | date:'d MMM y, HH:mm'}}
                 </span>
             </div>
         </div>
