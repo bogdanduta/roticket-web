@@ -28,7 +28,7 @@
 
                 <div class="dep-journey">
                     <div class="country">From</div>
-                    <rtt-station-typeahead [location]="bookingService.departureLocation"></rtt-station-typeahead>
+                    <rtt-station-typeahead [(location)]="bookingService.departureLocation"></rtt-station-typeahead>
                 </div>
             
                 <button (click)="bookingService.swapLocations()" type="button" class="btn swap" aria-label="swap" tabindex="3">

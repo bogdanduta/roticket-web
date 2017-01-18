@@ -61,7 +61,8 @@ export class BookingService {
         this.bookingSteps = BookingStep.bookingSteps;
         this.searchType = 'oneWay';
 
-        let now = new Date();
+        //let now = new Date();
+        let now = new Date(2016, 11, 1, 21, 30, 0);
         now = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 
             now.getHours(), now.getMinutes(), 0));
 

@@ -85,9 +85,10 @@
             <div class="well">
                 <template ngFor let-segment [ngForOf]= "journey.segments">
                     <div [ngSwitch]="segment.segmentType">
-                        <rtt-train-segment *ngSwitchCase="0" [segment]="segment"></rtt-train-segment>                
+                        <rtt-train-segment *ngSwitchCase="0" [segment]="segment"></rtt-train-segment>                                        
                         <rtt-wait-segment *ngSwitchCase="1" [segment]="segment"></rtt-wait-segment>
                         <rtt-walk-segment *ngSwitchCase="2" [segment]="segment"></rtt-walk-segment>
+                        <rtt-coach-group-segment *ngSwitchCase="3" [segment]="segment"></rtt-coach-group-segment>
                     </div>
                 </template>
             </div>

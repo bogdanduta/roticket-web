@@ -13,16 +13,8 @@ export class MinutesToLocalTimePipe implements PipeTransform {
   transform(totalMinutes: number): string {
     
     let hours =  Math.floor(totalMinutes / 60);
-    let result = '';
-    
-    if (hours < 10) {
-        result = '0' + hours + ':';
-    }
     let minutes = totalMinutes % 60;
-    if (minutes < 10) {
-        result += '0' + minutes;
-    }
- 
-    return result;
+    
+    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
   }
 }

@@ -14,6 +14,7 @@ import { JourneyDetailsComponent } from './select/journey/journey-details.compon
 import { TrainSegmentComponent } from './select/journey/train-segment.component';
 import { WaitSegmentComponent } from './select/journey/wait-segment.component';
 import { WalkSegmentComponent } from './select/journey/walk-segment.component';
+import { CoachGroupSegmentComponent } from './select/journey/coach-group-segment.component';
 
 import { BookingSelectOfferComponent } from './select/offer/booking-select-offer.component';
 
@@ -42,6 +43,7 @@ import  { ApiUrl } from '../core/api-url';
         TrainSegmentComponent,
         WaitSegmentComponent,
         WalkSegmentComponent,
+        CoachGroupSegmentComponent,
         
         BookingSelectOfferComponent     
     ],

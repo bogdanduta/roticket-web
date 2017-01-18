@@ -15,6 +15,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-3 train">
                     <span class="pull-right-sm">
+                        coach group
                         <template ngFor let-train [ngForOf]="segment.trains">
                             <a [routerLink]="['/timetable/train-info', train.trainIndex, getReferenceLocalDateTime(train.trainReferenceLocalDateTime)]" target="_blank">
                                 <span class="transport train"> {{train.serviceNumber}}</span>

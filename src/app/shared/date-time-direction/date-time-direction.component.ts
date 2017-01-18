@@ -30,17 +30,12 @@ export class DateTimeDirectionComponent implements OnChanges, OnInit {
     updateUIBindings(){
         if(this.dateTime){
             this.date = {
-                //year: this.dateTime.year,
                 year: this.dateTime.getUTCFullYear(),
-                //month: this.dateTime.month,
-                month: this.dateTime.getUTCMonth() + 1,
-                //day: this.dateTime.day
+                month: this.dateTime.getUTCMonth(),
                 day: this.dateTime.getUTCDate()
             };
             this.time = {
-                //hour: this.dateTime.hour,
                 hour: this.dateTime.getUTCHours(),
-                //minute: this.dateTime.minutes,
                 minute: this.dateTime.getUTCMinutes(),
                 second: 0
             };            
